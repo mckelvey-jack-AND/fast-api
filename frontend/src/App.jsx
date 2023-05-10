@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 
 function App() {
-  console.log("firstgghgh");
+  console.log("firstggh");
   return (
     <h1>
       Welcome to the Quiz App
