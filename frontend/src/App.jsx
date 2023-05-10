@@ -5,7 +5,7 @@ function App() {
   return (
     <h1>
       Welcome to the Quiz App
-      <p>test wrong indenghjgtationsdfghj</p>
+      <p>test wrong indentations</p>
     </h1>
   );
 }
