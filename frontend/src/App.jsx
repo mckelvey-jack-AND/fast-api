@@ -5,7 +5,7 @@ function App() {
   return (
     <h1>
       Welcome to the Quiz App
-      <p>test wrong indenghjtationsdfghj</p>
+      <p>test wrong indenghjgtationsdfghj</p>
     </h1>
   );
 }
