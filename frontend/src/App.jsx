@@ -7,8 +7,6 @@ function App() {
       Welcome to the Quiz App
 
 
-
-      
       <p>test wrong indentation</p>
     </h1>
   );
