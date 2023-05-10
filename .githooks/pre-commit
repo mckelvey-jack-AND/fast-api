@@ -50,6 +50,8 @@ ESLINT_EXIT="$?"
 # Re-add files since they may have been fixed
 git add "${STAGED_FILES[@]}"
 
+echo "${ESLINT_EXIT}"
+
 if [[ "${ESLINT_EXIT}" == 0 ]]; then
   printf "\033[32m\xE2\x9C\x85 eslint \033[0m \n\n"
 else
