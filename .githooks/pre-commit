@@ -19,12 +19,12 @@ FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
 [ -z "$FILES" ] && exit 0
 
 # Prettify all selected files
-echo "$FILES" | xargs ./frontend/node_modules/.bin/prettier --ignore-unknown --write
+echo "$FILES+this is a test" | xargs ./frontend/node_modules/.bin/prettier --ignore-unknown --write
 
 # Add back the modified/prettified files to staging
 echo "$FILES" | xargs git add
 
- printf "\033[32m\xE2\x9C\x85 pretify \033[0m \n\n"
+printf "\033[32m\xE2\x9C\x85 pretify \033[0m \n\n"
 
 
 #!/bin/bash
