@@ -31,7 +31,6 @@ printf "\033[32m\xE2\x9C\x85 pretify \033[0m \n\n"
 #!/bin/bash
 cd "$(git rev-parse --show-toplevel)"
 ESLINT="./frontend/node_modules/.bin/eslint"
-pwd
 
 if [[ ! -x "$ESLINT" ]]; then
   printf "\t\033[41mPlease install ESlint\033[0m (npm install eslint)\n"
