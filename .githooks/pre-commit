@@ -35,7 +35,9 @@ printf "\n\033[32m\xE2\x9C\x85 prettier \033[0m\n"
 PYTHON_STAGED_FILES=($(git diff --cached --name-only --diff-filter=ACM | grep ".py\{0,1\}$"))
 echo $PYTHON_STAGED_FILES
 
-black $PYTHON_STAGED_FILES  --quiet
+black backend/app/api.py
+
+# black $PYTHON_STAGED_FILES  --quiet
 # printf "\033[32m\xE2\x9C\x85 black \033[0m \n"
 
 
