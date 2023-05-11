@@ -16,4 +16,5 @@ max-args=6
 notes=FIXME,XXX
 [MESSAGES CONTROL]
 disable=
+missing-function-docstring
 	
