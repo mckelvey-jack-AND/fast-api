@@ -9,10 +9,8 @@ Frontend tests:
   variables:
     GIT_CHECKOUT: "true"
   script:
-    - whoami
-    - locate npm
+    - export PATH=/home/ubuntu/.nvm/versions/node/v10.16.3/bin/:$PATH
     - echo $PATH
-    - which npm
     - cd frontend
     - npm ci
     - echo "Running frontend tests..."
