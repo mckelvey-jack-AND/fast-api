@@ -4,7 +4,7 @@ import "./App.css";
 function App() {
   return (
     <h1>
-      Welcome to the Quiz Appp
+      Welcome to the Quiz App
       <p>test wrong indentations</p>
     </h1>
   );
