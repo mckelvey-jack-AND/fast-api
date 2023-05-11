@@ -5,7 +5,7 @@
 ```
 $ cd backend
 $ python3 -m venv env
-$ source env/bin/activate
+$ source venv/bin/activate
 (env)$ pip install -r requirements.txt
 (env)$ python main.py
 # Depending on your python version you may need to run the following command instead.
