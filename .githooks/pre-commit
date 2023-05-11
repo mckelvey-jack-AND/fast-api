@@ -71,19 +71,19 @@ STAGED_FILES=($(git diff --cached --name-only --diff-filter=ACM | grep ".jsx\{0,
 
 if [[ "$STAGED_FILES" = "" ]]; then
   printf "\033[36m eslint skipped  (no files to check) \033[0m \n"
-fi
-
-$ESLINT "${STAGED_FILES[@]}" --fix
-
-ESLINT_EXIT="$?"
-
-# Re-add files since they may have been fixed
-git add "${STAGED_FILES[@]}"
-
-if [[ "${ESLINT_EXIT}" == 0 ]]; then
-  printf "\033[32m\xE2\x9C\x85 eslint \033[0m \n"
 else
-  printf "\033[31m\xE2\x9D\x8C eslint \033[0m\n"
+  $ESLINT "${STAGED_FILES[@]}" --fix
+
+  ESLINT_EXIT="$?"
+
+  # Re-add files since they may have been fixed
+  git add "${STAGED_FILES[@]}"
+
+  if [[ "${ESLINT_EXIT}" == 0 ]]; then
+    printf "\033[32m\xE2\x9C\x85 eslint \033[0m \n"
+  else
+    printf "\033[31m\xE2\x9D\x8C eslint \033[0m\n"
+  fi
 fi
 
 if [[ "${PYLINT_EXIT}" == 1 || "${ESLINT_EXIT}" == 1  ]]; then 
