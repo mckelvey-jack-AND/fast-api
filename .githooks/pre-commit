@@ -49,7 +49,12 @@ cd backend && source venv/bin/activate && pylint ./app -sn
 
 PYLINT_EXIT="$?"
 
-echo $PYLINT_EXIT
+if [[ "${PYLINT_EXIT}" == 0 ]]; then
+  printf "\033[32m\xE2\x9C\x85 pylint \033[0m \n\n"
+else
+  printf "\033[31m\xE2\x9D\x8C pylint \033[0m\n\n"
+  exit 1
+fi
 
 #ESLint
 
