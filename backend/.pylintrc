@@ -1,5 +1,6 @@
 
 [MASTER]
+
 [VARIABLES]
 # TODO(https://github.com/PyCQA/pylint/issues/1345): How does the inspection
 # not include "unused_" and "ignored_" by default?
@@ -16,5 +17,4 @@ max-args=6
 notes=FIXME,XXX
 [MESSAGES CONTROL]
 disable=
-missing-function-docstring
-	
+	missing-function-docstring,
