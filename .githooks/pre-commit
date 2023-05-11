@@ -33,7 +33,7 @@ printf "\n\033[32m\xE2\x9C\x85 prettier \033[0m\n"
 #!/bin/bash
 
 # Paths are relative to the root of the git repository
-cd backend && black ./app
+cd backend && black ./app --quiet
 
 
 
