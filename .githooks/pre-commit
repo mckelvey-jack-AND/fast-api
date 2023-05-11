@@ -20,7 +20,7 @@ FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
 [ -z "$FILES" ] && exit 0
 
 # Prettify all selected files
-echo "$FILES" | xargs ./frontend/node_modules/.bin/prettier --ignore-unknown --write 
+echo "$FILES" | xargs ./frontend/node_modules/.bin/prettier --ignore-unknown --write --loglevel silent
 
 # Add back the modified/prettified files to staging
 echo "$FILES" | xargs git add
@@ -42,7 +42,7 @@ fi
 STAGED_FILES=($(git diff --cached --name-only --diff-filter=ACM | grep ".jsx\{0,1\}$"))
 
 if [[ "$STAGED_FILES" = "" ]]; then
-  printf "\033[32m\xE2\x9C\x85 eslint \033[0m \n\n"
+  printf "\033[36m\ eslint skipped (no files to check) \033[0m \n\n"
   exit 0
 fi
 
