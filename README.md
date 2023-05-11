@@ -4,7 +4,7 @@
 
 ```
 $ cd backend
-$ python3 -m venv env
+$ python3 -m venv venv
 $ source venv/bin/activate
 (env)$ pip install -r requirements.txt
 (env)$ python main.py
