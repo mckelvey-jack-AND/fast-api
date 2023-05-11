@@ -9,8 +9,11 @@ Frontend tests:
   variables:
     GIT_CHECKOUT: "true"
   script:
+    - whoami
+    - locate npm
     - echo $PATH
+    - which npm
     - cd frontend
-    - call npm ci
+    - npm ci
     - echo "Running frontend tests..."
     - npm run test
