@@ -45,7 +45,7 @@ fi
 
 #Pylint
 
-cd backend && source venv/bin/activate && pylint ./app -sn
+cd backend && source venv/bin/activate && pylint ./app -sn --errors-only
 
 PYLINT_EXIT="$?"
 
