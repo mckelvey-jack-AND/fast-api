@@ -42,7 +42,7 @@ fi
 STAGED_FILES=($(git diff --cached --name-only --diff-filter=ACM | grep ".jsx\{0,1\}$"))
 
 if [[ "$STAGED_FILES" = "" ]]; then
-  printf "\033[36m eslint skipped  (no files to check) \033[0m \n\n"
+  printf "\n\033[36m eslint skipped  (no files to check) \033[0m \n\n"
   exit 0
 fi
 
