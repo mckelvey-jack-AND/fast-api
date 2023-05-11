@@ -1,0 +1,12 @@
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+Frontend tests:
+  stage: test
+  variables:
+    GIT_CHECKOUT: "true"
+  script:
+    - cd frontend
+    - npm ci
+    - npm run test
