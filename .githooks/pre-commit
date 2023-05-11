@@ -86,10 +86,7 @@ else
   fi
 fi
 
-echo $PYLINT_EXIT
-
-if [[ "${PYLINT_EXIT}" == 1 ]]; then
-echo "hello"
+if [[ "${ESLINT_EXIT}" == 1 ]] || [[ "${PYLINT_EXIT}" > 0 ]]; then
   exit 1
 fi
 
