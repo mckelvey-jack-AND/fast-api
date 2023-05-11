@@ -63,7 +63,7 @@ fi
 #!/bin/bash
 
 # Paths are relative to the root of the git repository
-xargs ./backend/venv/lib/python3.10/site-packages/black ../backend/app/api
+xecho "$FILES" | args ./backend/venv/lib/python3.10/site-packages/black ../backend/app/api
 
 exit $?
 
