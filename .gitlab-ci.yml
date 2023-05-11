@@ -10,8 +10,6 @@ Frontend tests:
     GIT_CHECKOUT: "true"
   script:
     - export PATH=/home/ubuntu/.nvm/versions/node/v10.16.3/bin/:$PATH
-    - echo $PATH
     - cd frontend
     - npm ci
-    - echo "Running frontend tests..."
     - npm run test
