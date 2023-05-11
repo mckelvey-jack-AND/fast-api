@@ -87,6 +87,7 @@ else
 fi
 
 if [[ "${PYLINT_EXIT}" == 1 || "${ESLINT_EXIT}" == 1  ]]; then 
+echo "hello"
   exit 1
 fi
 
