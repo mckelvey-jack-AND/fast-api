@@ -8,5 +8,6 @@ Frontend tests:
     GIT_CHECKOUT: "true"
   script:
     - cd frontend
+    - pwd
     - npm ci
     - npm run test
