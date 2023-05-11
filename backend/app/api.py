@@ -13,11 +13,9 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-    
-    
 )
 
 
 @app.get("/", tags=["root"])
-async def read_root() -> dict:
+async def read_root() -> dct:
     return {"message": "Hello world."}
