@@ -37,7 +37,7 @@ echo $PYTHON_STAGED_FILES
 
 
 
-cd backend && source venv/bin/activate && black backend/app/api.py
+cd backend && source venv/bin/activate && cd .. && black backend/app/api.py
 
 # black $PYTHON_STAGED_FILES  --quiet
 # printf "\033[32m\xE2\x9C\x85 black \033[0m \n"
