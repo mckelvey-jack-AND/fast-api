@@ -54,7 +54,8 @@ ESLINT_EXIT="$?"
 git add "${STAGED_FILES[@]}"
 
 if [[ "${ESLINT_EXIT}" == 0 ]]; then
-  printf "\033[32m\xE2\x9C\x85 eslint \033[0m \n\n"
+printf "\033[36m eslint skipped  (no files to check) \033[0m \n\n"
+  # printf "\033[32m\xE2\x9C\x85 eslint \033[0m \n\n"
 else
   printf "\033[31m\xE2\x9D\x8C eslint \033[0m\n\n"
   exit 1
