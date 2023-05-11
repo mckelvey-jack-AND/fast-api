@@ -63,7 +63,7 @@ fi
 #!/bin/bash
 
 # Paths are relative to the root of the git repository
-cd backend && black ./app
+cd backend && pwd && black ./app
 
 exit $?
 
