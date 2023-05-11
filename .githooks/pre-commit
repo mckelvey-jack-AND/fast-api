@@ -86,7 +86,8 @@ else
   fi
 fi
 
-if [[ "${ESLINT_EXIT}" == 1 ]] || [[ "${TEST_EXIT}" == 1 ]]; then
+if [[ "${ESLINT_EXIT}" == 1 ]] || [[ "${PYLINT_EXIT}" == 1 ]]; then
+echo "hello"
   exit 1
 fi
 
