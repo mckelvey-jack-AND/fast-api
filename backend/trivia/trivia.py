@@ -5,7 +5,7 @@ import requests
 import json
 from datetime import datetime
 
-load_dotenv('../.env')
+load_dotenv('../../.env')
 
 # Establish a connection to the Google Cloud MySQL database
 db_host = os.environ.get('DB_HOST')
