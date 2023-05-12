@@ -22,7 +22,12 @@ connection = pymysql.connect(
 )
 
 # Make an API request to get 10 questions from trivia api
-response = requests.get('https://opentdb.com/api.php?amount=10')
+url = 'https://opentdb.com/api.php'
+params = {
+    'amount': 10,
+    'type': 'multiple'
+}
+response = requests.get(url, params=params)
 data = response.json()['results']
 
 
@@ -38,26 +43,27 @@ else:
 
 quiz_text="quiz_"+str(quiz_id)
 current_date_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-sql = f"INSERT INTO rounds (rounds, date) VALUES ('{quiz_text}','{current_date_time}')"
-cursor.execute(sql)
-question_id=1
+sql_rounds = f"INSERT INTO rounds (rounds, date) VALUES ('{quiz_text}','{current_date_time}')"
+cursor.execute(sql_rounds)
+question_id=((quiz_id-1)*10)+1
 
-print(quiz_id)
 for question in data:
     question_text = question['question']
     correct_answer = question['correct_answer']
     incorrect_answers = question['incorrect_answers']
     answer_choices = [correct_answer] + incorrect_answers
+    print(answer_choices)
     is_correct = [1,0,0,0]
-    sql1 = f"INSERT INTO questions (quiz_id, text) VALUES ({quiz_id},'{question_text}')"
-    cursor.execute(sql1)
+    sql_questions = f"INSERT INTO questions (quiz_id, text) VALUES ({quiz_id},'{question_text}')"
+    cursor.execute(sql_questions)
     for i in range(4):
-        sql2 = f"INSERT INTO answers (question_id, text, is_correct) VALUES ('{question_id}','{answer_choices[i]}',{is_correct[i]})"
-        cursor.execute(sql2)
+        print(question_id)
+        sql_answers = f"INSERT INTO answers (question_id, text, is_correct) VALUES ({question_id},'{answer_choices[i]}',{is_correct[i]})"
+        cursor.execute(sql_answers)
 
-    question_id=+1 
+    answer_choices=[]
+    question_id=question_id+1 
    
-
 
 # Commit the changes and close the connection
 connection.commit()
