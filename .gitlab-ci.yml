@@ -5,7 +5,7 @@ workflow:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
 before_script:
-  - cd
+  - cd ..
   - pwd
   - cd frontend
 
@@ -26,8 +26,6 @@ workflow:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
 before_script:
-  - cd
-  - pwd
   - cd backend
   - python3 -m venv venv
   - source venv/bin/activate
