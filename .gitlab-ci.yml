@@ -4,13 +4,16 @@ workflow:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
+before_script:
+  - cd
+  - cd frontend
+  
 Frontend tests:
   stage: test
   variables:
     GIT_CHECKOUT: "true"
   script:
     - export PATH=/home/ubuntu/.nvm/versions/node/v10.16.3/bin/:$PATH
-    - cd frontend
     - npm ci
     - npm run test
 
@@ -22,6 +25,7 @@ workflow:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
 before_script:
+  - cd
   - cd backend
   - python3 -m venv venv
   - source venv/bin/activate
