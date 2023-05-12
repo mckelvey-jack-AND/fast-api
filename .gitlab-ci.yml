@@ -1,22 +1,54 @@
-image: ubuntu:latest
+image: python:latest
 
 workflow:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
 before_script:
-  - sudo apt install nodejs npm
+  - cd ..
   - pwd
   - cd frontend
+  - export PATH=/home/ubuntu/.nvm/versions/node/v10.16.3/bin/:$PATH
+  - npm ci
+  - cd ../backend
+  - python3 -m venv venv
+  - source venv/bin/activate
+  - pip install -r requirements.txt
 
 Frontend tests:
   stage: test
   variables:
     GIT_CHECKOUT: "true"
   script:
-    # - export PATH=/home/ubuntu/.nvm/versions/node/v10.16.3/bin/:$PATH
-    - npm ci
+    - cd ../frontend
     - npm run test
+
+Backend tests:
+  stage: test
+  variables:
+    GIT_CHECKOUT: "true"
+  script:
+    - pytest
+# image: node:latest
+
+# workflow:
+#   rules:
+#     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+# before_script:
+#   - cd ..
+#   - pwd
+#   - cd frontend
+
+# Frontend tests:
+#   stage: test
+#   variables:
+#     GIT_CHECKOUT: "true"
+#   script:
+#     - export PATH=/home/ubuntu/.nvm/versions/node/v10.16.3/bin/:$PATH
+#     - npm ci
+#     - npm run test
+
 # # TEST FOR BACKEND
 # image: python:latest
 
