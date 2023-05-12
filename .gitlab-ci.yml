@@ -1,20 +1,20 @@
-# image: node:latest
+image: node:latest
 
-# workflow:
-#   rules:
-#     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
-# Frontend tests:
-#   stage: test
-#   variables:
-#     GIT_CHECKOUT: "true"
-#   script:
-#     - export PATH=/home/ubuntu/.nvm/versions/node/v10.16.3/bin/:$PATH
-#     - cd frontend
-#     - npm ci
-#     - npm run test
+Frontend tests:
+  stage: test
+  variables:
+    GIT_CHECKOUT: "true"
+  script:
+    - export PATH=/home/ubuntu/.nvm/versions/node/v10.16.3/bin/:$PATH
+    - cd frontend
+    - npm ci
+    - npm run test
 
-# TEST FOR PYTHON BACKEND
+# TEST FOR BACKEND
 image: python:latest
 
 workflow:
