@@ -6,8 +6,9 @@ workflow:
 
 before_script:
   - cd
+  - pwd
   - cd frontend
-  
+
 Frontend tests:
   stage: test
   variables:
@@ -26,6 +27,7 @@ workflow:
 
 before_script:
   - cd
+  - pwd
   - cd backend
   - python3 -m venv venv
   - source venv/bin/activate
