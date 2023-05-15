@@ -51,14 +51,14 @@ for question in data:
     question_text = question['question']
     correct_answer = question['correct_answer']
     incorrect_answers = question['incorrect_answers']
+    category = question['category']
+    difficulty = question['difficulty']
     answer_choices = [correct_answer] + incorrect_answers
-    print(answer_choices)
     is_correct = [1,0,0,0]
-    sql_questions = f"INSERT INTO questions (quiz_id, text) VALUES ({quiz_id},'{question_text}')"
+    sql_questions = f"INSERT INTO questions (quiz_id, question_text, category, difficulty) VALUES ({quiz_id},'{question_text}','{category}','{difficulty}')"
     cursor.execute(sql_questions)
     for i in range(4):
-        print(question_id)
-        sql_answers = f"INSERT INTO answers (question_id, text, is_correct) VALUES ({question_id},'{answer_choices[i]}',{is_correct[i]})"
+        sql_answers = f"INSERT INTO answers (question_id, answer_text, is_correct) VALUES ({question_id},'{answer_choices[i]}',{is_correct[i]})"
         cursor.execute(sql_answers)
 
     answer_choices=[]

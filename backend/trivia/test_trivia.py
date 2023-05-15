@@ -7,7 +7,6 @@ def test_trivia_api_call():
         'type': 'multiple'
     }
     response = requests.get(url, params=params)
-
     # Assert the response status code is 200 (OK)
     assert response.status_code == 200
 
