@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+#Branch naming convention check
+
 LC_ALL=C
 
 local_branch="$(git rev-parse --abbrev-ref HEAD)"
@@ -13,47 +16,77 @@ then
     exit 1
 fi
 
+#Prettier
 
 #!/bin/sh
 FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
 [ -z "$FILES" ] && exit 0
 
 # Prettify all selected files
-echo "$FILES" | xargs ./frontend/node_modules/.bin/prettier --ignore-unknown --write
+echo "$FILES" | xargs ./frontend/node_modules/.bin/prettier --ignore-unknown --write --loglevel silent
 
 # Add back the modified/prettified files to staging
 echo "$FILES" | xargs git add
 
- printf "\033[32m\xE2\x9C\x85 pretify \033[0m \n\n"
+printf "\n\033[32m\xE2\x9C\x85 prettier \033[0m\n"
 
+
+#Python Black
+
+#!/bin/bash
+PYTHON_STAGED_FILES=($(git diff --cached --name-only --diff-filter=ACM | grep ".py\{0,1\}$"))
+
+if [[ "$PYTHON_STAGED_FILES" ]]; then
+  cd backend && source venv/bin/activate && cd .. && black $PYTHON_STAGED_FILES --quiet
+  printf "\033[32m\xE2\x9C\x85 black \033[0m \n"
+  else
+  printf "\033[36m black skipped  (no files to check) \033[0m \n"
+fi
+
+#Pylint
+
+cd backend && source venv/bin/activate && pylint ./app -sn --errors-only
+
+PYLINT_EXIT="$?"
+
+if [[ "${PYLINT_EXIT}" == 0 ]]; then
+  printf "\033[32m\xE2\x9C\x85 pylint \033[0m \n"
+else
+  printf "\033[31m\xE2\x9D\x8C pylint \033[0m\n"
+fi
+
+#ESLint
 
 #!/bin/bash
 cd "$(git rev-parse --show-toplevel)"
 ESLINT="./frontend/node_modules/.bin/eslint"
-pwd
 
 if [[ ! -x "$ESLINT" ]]; then
   printf "\t\033[41mPlease install ESlint\033[0m (npm install eslint)\n"
   exit 1
 fi
 
+
 STAGED_FILES=($(git diff --cached --name-only --diff-filter=ACM | grep ".jsx\{0,1\}$"))
 
 if [[ "$STAGED_FILES" = "" ]]; then
-  exit 0
+  printf "\033[36m eslint skipped  (no files to check) \033[0m \n"
+else
+  $ESLINT "${STAGED_FILES[@]}" --fix
+
+  ESLINT_EXIT="$?"
+
+  # Re-add files since they may have been fixed
+  git add "${STAGED_FILES[@]}"
+
+  if [[ "${ESLINT_EXIT}" == 0 ]]; then
+    printf "\033[32m\xE2\x9C\x85 eslint \033[0m \n"
+  else
+    printf "\033[31m\xE2\x9D\x8C eslint \033[0m\n"
+  fi
 fi
 
-$ESLINT "${STAGED_FILES[@]}" --fix
-
-ESLINT_EXIT="$?"
-
-# Re-add files since they may have been fixed
-git add "${STAGED_FILES[@]}"
-
-if [[ "${ESLINT_EXIT}" == 0 ]]; then
-  printf "\033[32m\xE2\x9C\x85 eslint \033[0m \n\n"
-else
-  printf "\033[31m\xE2\x9D\x8C eslint \033[0m\n\n"
+if [[ "${ESLINT_EXIT}" == 1 ]] || [[ "${PYLINT_EXIT}" > 0 ]]; then
   exit 1
 fi
 

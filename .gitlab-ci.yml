@@ -1,0 +1,29 @@
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+stages:
+  - test frontend
+  - test backend
+
+Frontend tests:
+  stage: test frontend
+  image: node:latest
+  variables:
+    GIT_CHECKOUT: "true"
+  script:
+    - cd frontend
+    - npm ci
+    - npm run test
+
+Backend tests:
+  stage: test backend
+  image: python:latest
+  variables:
+    GIT_CHECKOUT: "true"
+  script:
+    - cd backend
+    - python3 -m venv venv
+    - source venv/bin/activate
+    - pip install -r requirements.txt
+    - pytest
