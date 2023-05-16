@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-// import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import {
   createBrowserRouter,
@@ -13,6 +12,7 @@ import Dashboard from "./components/Dashboard";
 import Quiz from "./components/Quiz";
 import App from "./App";
 import Home from "./components/Home";
+import NotFoundPage from "./components/NotFoundPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +20,7 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="dashboard" element={<Dashboard />} />
       <Route path="quiz" element={<Quiz />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Route>
   )
 );
