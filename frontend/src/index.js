@@ -17,7 +17,7 @@ import Home from "./components/Home";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route path="/" element={<Home />} />
+      <Route index element={<Home />} />
       <Route path="dashboard" element={<Dashboard />} />
       <Route path="quiz" element={<Quiz />} />
     </Route>
