@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function NotFoundPage() {
+const NotFoundPage = () => {
   return (
     <div>
       <p style={{ fontSize: "96px" }}>404_</p>
@@ -11,4 +11,6 @@ export default function NotFoundPage() {
       </button>
     </div>
   );
-}
+};
+
+export default NotFoundPage;

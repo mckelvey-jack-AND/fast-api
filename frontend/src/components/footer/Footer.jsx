@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Footer() {
+const Footer = () => {
   return (
     <footer>
       <p>© 2023</p>
@@ -9,4 +9,6 @@ export default function Footer() {
       </p>
     </footer>
   );
-}
+};
+
+export default Footer;

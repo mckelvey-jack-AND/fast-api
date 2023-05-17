@@ -8,11 +8,11 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import Dashboard from "./components/Dashboard";
-import Quiz from "./components/Quiz";
 import App from "./App";
-import Home from "./components/Home";
-import NotFoundPage from "./components/NotFoundPage";
+import Dashboard from "./pages/dashboard/Dashboard";
+import Quiz from "./pages/quiz/Quiz";
+import Home from "./pages/home/Home";
+import NotFoundPage from "./pages/notFound/NotFoundPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

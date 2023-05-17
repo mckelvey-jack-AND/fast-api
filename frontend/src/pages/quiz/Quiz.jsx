@@ -1,5 +1,7 @@
 import React from "react";
 
-export default function Quiz() {
+const Quiz = () => {
   return <div style={{ height: "500px", backgroundColor: "yellow" }}>Quiz</div>;
-}
+};
+
+export default Quiz;
