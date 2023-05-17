@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Individual from "./Individual";
+
 describe("Individual component", () => {
   it("should render Individual dashboard content", () => {
     render(<Individual />);
