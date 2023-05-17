@@ -12,7 +12,7 @@ import App from "./App";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Quiz from "./pages/quiz/Quiz";
 import Home from "./pages/home/Home";
-import NotFoundPage from "./pages/notFound/NotFoundPage";
+import NotFound from "./pages/notFound/NotFound";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,7 +20,7 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="dashboard" element={<Dashboard />} />
       <Route path="quiz" element={<Quiz />} />
-      <Route path="*" element={<NotFoundPage />} />
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 );
