@@ -1,0 +1,25 @@
+.main {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+.welcomeText {
+  font-weight: 800;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.paragraph {
+  margin-bottom: 50px;
+}
+.links {
+  margin-top: 100px;
+  display: inline-block;
+}
+.dashboard {
+  float: left;
+}
+.quiz {
+  float: right;
+  margin: auto;
+  padding-left: 200px;
+}
