@@ -1,12 +1,19 @@
 import React from "react";
 import "./App.css";
+import { Outlet } from "react-router-dom";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
 
 function App() {
   return (
-    <h1>
-      Welcome to the Quiz Apps
-      <p>test wrong indentations</p>
-    </h1>
+    <>
+      <Header />
+      <main>
+        {/* Dynamic main content */}
+        <Outlet />
+      </main>
+      <Footer />
+    </>
   );
 }
 
