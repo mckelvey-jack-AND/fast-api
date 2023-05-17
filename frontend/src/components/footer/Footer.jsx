@@ -1,11 +1,11 @@
 import React from "react";
+import styles from "./footer.module.css";
 
 const Footer = () => {
   return (
-    <footer>
-      <p>© 2023</p>
+    <footer className={styles.footer}>
       <p>
-        Created by <a href="">@and digital</a>
+        © 2023 Created by <a href="">@and digital</a>
       </p>
     </footer>
   );
