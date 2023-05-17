@@ -1,3 +1,33 @@
-.dashboardContainer {
-  background-color: red;
+
+.tabs {
+  margin: 3.5rem auto 1.5rem;
+  padding: 2rem 1rem;
+}
+
+ul.nav {
+  width: 60%;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid black;
+
+  padding-left: 0px;
+}
+ul.nav li {
+  width: 50%;
+  padding: 1rem;
+  list-style: none;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.7s;
+}
+ul.nav li:nth-child(2) {
+  border-radius: 0;
+}
+ul.nav li:hover {
+  background: #F5F5F6;
+}
+ul.nav li.active {
+  background: #F5F5F6;
 }
