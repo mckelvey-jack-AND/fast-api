@@ -1,9 +1,9 @@
 import React from "react";
+
 const Squad = () => {
   return (
-    <div >
+    <div>
       <p>Squad dashboard content</p>
-
     </div>
   );
 };
