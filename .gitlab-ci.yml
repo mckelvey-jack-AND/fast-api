@@ -13,11 +13,7 @@ Frontend tests:
     GIT_CHECKOUT: "true"
   script:
     - cd frontend
-    - if [ -e package-lock.json ]; then
-      npm ci
-      else
-      npm i
-      fi
+    - npm install
     - npm run test
 
 Backend tests:
