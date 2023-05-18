@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from .queries.correct_answers import get_correct_answers
 
 
 app = FastAPI()
@@ -15,7 +16,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/", tags=["root"])
 async def read_root() -> dict:
-    
     return {"message": "Hello world."}
+
+@app.get("/correct-answers", tags=["root"])
+async def read_correct_answers() -> dict:
+    data = get_correct_answers()
+    return data
