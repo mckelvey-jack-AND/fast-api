@@ -4,7 +4,7 @@ import styles from "./leaderboard.module.css";
 const Leaderboard = ({ userData, type }) => {
   return (
     <div className={styles.leaderboard}>
-      <ol>
+      <ol className={styles.orderList}>
         {userData.map((user) => {
           const name =
             type === "squad"

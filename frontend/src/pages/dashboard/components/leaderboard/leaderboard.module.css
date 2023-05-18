@@ -1,8 +1,19 @@
+.orderList{
+    counter-reset: item;
+}
 .list {
+  display: block;
   width: 250px;
   margin: auto;
   background: #f5f5f6;
 }
+.list::before {
+    display: inline-block;
+    content: counter(item) "";
+    counter-increment: item;
+    width: 2em;
+    margin-left: -15em;
+  }
 
 .list:nth-child(2n) {
   background: white;
