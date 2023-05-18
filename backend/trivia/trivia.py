@@ -5,6 +5,7 @@ import requests
 import json
 from datetime import datetime
 
+
 load_dotenv('../../.env')
 
 # Establish a connection to the Google Cloud MySQL database
