@@ -18,7 +18,7 @@ const Dashboard = () => {
         </li>
         <li
           onClick={() => {
-            setActive("Squad");
+            setActive("squad");
           }}
         >
           Squad
