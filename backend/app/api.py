@@ -21,6 +21,6 @@ async def read_root() -> dict:
     return {"message": "Hello world."}
 
 @app.get("/leaderboard")
-def get_data():
-    data = get_leaderboard_data()
+def get_data(type: str):
+    data = get_leaderboard_data(type)
     return {"data": data}
