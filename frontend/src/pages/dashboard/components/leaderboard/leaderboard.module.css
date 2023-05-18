@@ -1,0 +1,15 @@
+
+.list {
+    width: 250px;
+    margin: auto;
+}
+.name{
+    width: 150px;
+    float: left;
+    margin-left: 40px;
+}
+.score{
+    width: 20px;
+    float: left;
+    margin-left: 30px;
+}

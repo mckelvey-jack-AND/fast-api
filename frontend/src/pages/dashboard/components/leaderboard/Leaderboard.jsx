@@ -1,15 +1,19 @@
 import React from 'react';
+import styles from './leaderboard.module.css';
 
 const Leaderboard = ({ userData }) => {
  
   return (
-    <div className="leaderboard">
-      <h2>Leaderboard</h2>
+    <div className={styles.leaderboard}>
       <ol>
         {userData.map((user) => (
-          <li key={user.user_id}>
-            {user.first_name} {user.last_name} - {user['total score']}
+          <>
+          <li key={user.user_id} className={styles.list}>
+            <div className={styles.name}>{user.first_name} {user.last_name}</div>
+            <div className={styles.score}>{user['total score']}</div>
           </li>
+     
+          </>
         ))}
       </ol>
     </div>
