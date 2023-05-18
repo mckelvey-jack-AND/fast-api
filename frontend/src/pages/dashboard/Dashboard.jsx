@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./dashboard.module.css";
-import Individual from "../../components/individual/Individual";
-import Squad from "../../components/squad/Squad";
+import Individual from "./individual/Individual";
+import Squad from "./squad/Squad";
 
 const Dashboard = () => {
   const [active, setActive] = useState("individual");
