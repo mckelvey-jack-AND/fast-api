@@ -4,12 +4,13 @@ import Individual from "./components/individual/Individual";
 import Squad from "./components/squad/Squad";
 
 const Dashboard = () => {
-  const [active, setActive] = useState("individual");
+  const [active, setActive] = useState("squad");
 
   return (
     <div className={styles.tabs}>
       <ul className={styles.nav}>
         <li
+          className={active === "individual" ? styles.selected : undefined}
           onClick={() => {
             setActive("individual");
           }}
@@ -17,6 +18,7 @@ const Dashboard = () => {
           Individual
         </li>
         <li
+          className={active === "squad" ? styles.selected : undefined}
           onClick={() => {
             setActive("squad");
           }}
