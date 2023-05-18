@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./dashboard.module.css";
-import Individual from "./Individual";
-import Squad from "./Squad";
+import Individual from "./individual/Individual";
+import Squad from "./squad/Squad";
 import GroupedBarChart from "../../components/graphs/GroupedBarChart";
 
 const Dashboard = () => {
@@ -19,7 +19,7 @@ const Dashboard = () => {
         </li>
         <li
           onClick={() => {
-            setActive("Squad");
+            setActive("squad");
           }}
         >
           Squad
