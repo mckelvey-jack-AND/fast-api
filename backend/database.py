@@ -10,11 +10,11 @@ db_user = os.environ.get('DB_USER')
 db_password = os.environ.get('DB_PASSWORD')
 db_name = os.environ.get('DB_NAME')
 
-
-connection = pymysql.connect(
-    host=db_host,
-    user=db_user,
-    password=db_password,
-    database=db_name,
-    cursorclass=pymysql.cursors.DictCursor
-)
+def connectDB():
+    return pymysql.connect(
+        host=db_host,
+        user=db_user,
+        password=db_password,
+        database=db_name,
+        cursorclass=pymysql.cursors.DictCursor
+    )

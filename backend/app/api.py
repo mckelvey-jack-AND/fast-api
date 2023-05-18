@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .queries.correct_answers import get_correct_answers
+from queries.correct_answers import get_correct_answers
 
 
 app = FastAPI()

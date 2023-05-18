@@ -1,6 +1,7 @@
-from database import connection
+from database import connectDB
 
 def get_correct_answers():
+    connection = connectDB()
     query = f'''
     SELECT
     r.rounds
@@ -23,5 +24,6 @@ def get_correct_answers():
     cursor = connection.cursor()
     cursor.execute(query)
     data = cursor.fetchall()
+    cursor.close()
     connection.close()
     return data
