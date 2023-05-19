@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from queries.correct_answers import get_correct_answers
-
+from queries.correct_answer_fotmat import group_by_rounds, get_rounds
 
 app = FastAPI()
 
@@ -26,25 +26,6 @@ async def read_root() -> dict:
 async def read_correct_answers() -> dict:
     answers = get_correct_answers()
 
-    quiz_rounds_object = {}
-    for answer in answers:
-        quiz_round = answer["rounds"]
-        difficulty = answer["difficulty"]
-        total_correct = int(answer["total_correct"])
+    quiz_rounds = group_by_rounds(answers)
 
-        if quiz_round not in quiz_rounds_object:
-            quiz_rounds_object[quiz_round] = {"easy": 0, "medium": 0, "hard": 0}
-
-        quiz_rounds_object[quiz_round][difficulty.lower()] = total_correct
-    print(quiz_rounds_object)
-    quiz_rounds = []
-    for quiz_round in quiz_rounds_object:
-        quiz_rounds.append(
-            {
-                "name": quiz_round,
-                "easy": quiz_rounds_object[quiz_round]["easy"],
-                "medium": quiz_rounds_object[quiz_round]["medium"],
-                "hard": quiz_rounds_object[quiz_round]["hard"],
-            }
-        )
     return {"data": quiz_rounds}
