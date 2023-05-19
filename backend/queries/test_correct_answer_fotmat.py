@@ -1,4 +1,5 @@
 from correct_answer_fotmat import group_by_rounds, get_quiz_categories, get_rounds
+
 answers_from_db = [
     {
         "rounds": "quiz_1",
@@ -63,21 +64,18 @@ answers_for_graph = [
 
 
 def test_group_by_rounds():
-
     quiz_rounds = group_by_rounds(answers_from_db)
 
     assert quiz_rounds == answers_for_graph
 
 
 def test_get_quiz_categories():
-
     quiz_rounds_categories = get_quiz_categories(answers_from_db)
 
     assert quiz_rounds_categories == quiz_categories
 
 
 def test_get_rounds():
-
     quiz_rounds = get_rounds(quiz_categories)
 
     assert quiz_rounds == answers_for_graph
