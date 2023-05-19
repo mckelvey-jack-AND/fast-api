@@ -39,10 +39,12 @@ async def read_correct_answers() -> dict:
     print(quiz_rounds_object)
     quiz_rounds = []
     for quiz_round in quiz_rounds_object:
-        quiz_rounds.append({
-            "name": quiz_round,
-            "easy": quiz_rounds_object[quiz_round]["easy"],
-            "medium": quiz_rounds_object[quiz_round]["medium"],
-            "hard": quiz_rounds_object[quiz_round]["hard"],
-            })
+        quiz_rounds.append(
+            {
+                "name": quiz_round,
+                "easy": quiz_rounds_object[quiz_round]["easy"],
+                "medium": quiz_rounds_object[quiz_round]["medium"],
+                "hard": quiz_rounds_object[quiz_round]["hard"],
+            }
+        )
     return {"data": quiz_rounds}
