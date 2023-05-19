@@ -1,5 +1,12 @@
 def group_by_rounds(answers: list) -> list:
-    print(type(answers))
+    print((answers))
+    quiz_rounds_categories = get_quiz_categories(answers)
+    quiz_rounds = get_rounds(quiz_rounds_categories)
+
+    return quiz_rounds
+
+
+def get_quiz_categories(answers: list) -> dict:
     quiz_rounds_categories = {}
     for answer in answers:
         quiz_round = answer["rounds"]
@@ -11,10 +18,7 @@ def group_by_rounds(answers: list) -> list:
                 "easy": 0, "medium": 0, "hard": 0}
 
         quiz_rounds_categories[quiz_round][difficulty.lower()] = total_correct
-
-    quiz_rounds = get_rounds(quiz_rounds_categories)
-
-    return quiz_rounds
+    return quiz_rounds_categories
 
 
 def get_rounds(quiz_rounds_object: dict) -> list:
