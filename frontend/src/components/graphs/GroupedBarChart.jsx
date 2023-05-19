@@ -1,28 +1,18 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
-import Plot from "react-plotly.js";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
 const GroupedBarChart = () => {
   const { data: graphData, error, loading } = useFetch("/correct-answers");
   const navigate = useNavigate();
-
-  const getQuestionBars = () => {
-    const questionCategories = ["easy", "medium", "hard"];
-    const quizNames = graphData?.map((quiz) => Object.keys(quiz)[0]);
-
-    const questions = questionCategories.map((level) =>
-      graphData?.map((quiz) => Object.values(quiz)[0][level])
-    );
-
-    return questionCategories.map((level, index) => ({
-      x: quizNames,
-      y: questions[index],
-      name: level,
-      type: "bar",
-    }));
-  };
-
-  const questionBars = useMemo(() => getQuestionBars(), [graphData]);
 
   useEffect(() => {
     error && navigate("/error");
@@ -32,10 +22,16 @@ const GroupedBarChart = () => {
     <div>
       {loading && <div>Loading...</div>}
 
-      <Plot
-        data={questionBars}
-        layout={{ width: 700, height: 500, title: "Question levels" }}
-      />
+      <BarChart width={730} height={250} data={graphData}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="easy" fill="#acdf87" />
+        <Bar dataKey="medium" fill="#ffc500" />
+        <Bar dataKey="hard" fill="#e61717" />
+      </BarChart>
     </div>
   );
 };
