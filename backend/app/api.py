@@ -36,11 +36,13 @@ async def read_correct_answers() -> dict:
             quiz_rounds_object[quiz_round] = {"easy": 0, "medium": 0, "hard": 0}
 
         quiz_rounds_object[quiz_round][difficulty.lower()] = total_correct
-
+    print(quiz_rounds_object)
     quiz_rounds = []
     for quiz_round in quiz_rounds_object:
-        quiz_rounds.append({quiz_round: quiz_rounds_object[quiz_round]})
-
-    # [{'quiz_1': {'easy': 36, 'medium': 27, 'hard': 9}},
-    #  {'quiz_2': {'easy': 32, 'medium': 19, 'hard': 7}}...]
+        quiz_rounds.append({
+            "name": quiz_round,
+            "easy": quiz_rounds_object[quiz_round]["easy"],
+            "medium": quiz_rounds_object[quiz_round]["medium"],
+            "hard": quiz_rounds_object[quiz_round]["hard"],
+            })
     return {"data": quiz_rounds}
