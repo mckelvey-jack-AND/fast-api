@@ -14,8 +14,7 @@ def get_quiz_categories(answers: list) -> dict:
         total_correct = int(answer["total_correct"])
 
         if quiz_round not in quiz_rounds_categories:
-            quiz_rounds_categories[quiz_round] = {
-                "easy": 0, "medium": 0, "hard": 0}
+            quiz_rounds_categories[quiz_round] = {"easy": 0, "medium": 0, "hard": 0}
 
         quiz_rounds_categories[quiz_round][difficulty.lower()] = total_correct
     return quiz_rounds_categories
