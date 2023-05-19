@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from queries.leaderboard import get_leaderboard_data
 
@@ -22,5 +22,9 @@ async def read_root() -> dict:
 
 @app.get("/leaderboard")
 def get_data(type: str):
+
+    if type != "squad" and type != 'individual':
+        raise HTTPException(status_code=404, detail="Type must be individual or squad")
+    
     data = get_leaderboard_data(type)
     return {"data": data}
