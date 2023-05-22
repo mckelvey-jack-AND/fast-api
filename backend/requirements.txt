@@ -8,3 +8,4 @@ requests==2.30.0
 databases==0.7.0
 pymysql==1.0.3
 python-dotenv==1.0.0
+httpx
