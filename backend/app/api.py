@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from queries.leaderboard import get_leaderboard_data
+from queries.quizQuestions import get_quiz_data
 
 app = FastAPI()
 
@@ -27,4 +28,9 @@ def get_data(type: str):
         raise HTTPException(status_code=404, detail="Type must be individual or squad")
     
     data = get_leaderboard_data(type)
+    return {"data": data}
+
+@app.get("/quiz")
+def get_data(): 
+    data = get_quiz_data()
     return {"data": data}
