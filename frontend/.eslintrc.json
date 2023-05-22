@@ -19,7 +19,7 @@
   },
   "plugins": ["react"],
   "rules": {
-    "no-console": "error",
+    "no-console": "off",
     "react/prop-types":"off"
   },
   "settings": {
