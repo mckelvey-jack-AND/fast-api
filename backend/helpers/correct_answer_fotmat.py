@@ -1,5 +1,4 @@
 def group_by_rounds(answers: list) -> list:
-    print((answers))
     quiz_rounds_categories = get_quiz_categories(answers)
     quiz_rounds = get_rounds(quiz_rounds_categories)
 

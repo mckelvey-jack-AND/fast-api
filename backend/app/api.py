@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from queries.correct_answers import get_correct_answers
-from queries.correct_answer_fotmat import group_by_rounds, get_rounds
+from helpers.correct_answer_fotmat import group_by_rounds
 
 app = FastAPI()
 
