@@ -32,14 +32,14 @@ async def read_correct_answers() -> dict:
     return {"data": quiz_rounds}
 
 
-@app.get("/squad-questions-difficulty", tags=["root"])
+@app.get("/individual-questions-difficulty", tags=["root"])
 async def read_question_difficulty() -> dict:
     hardest_question = get_hardest_question()
     easiest_question = get_easiest_question()
 
     return {
         "data": {
-            "hardest_question": hardest_question,
-            "easiest_question": easiest_question,
+            "hardest_question": hardest_question[0],
+            "easiest_question": easiest_question[0],
         }
     }

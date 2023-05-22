@@ -1,16 +1,16 @@
 from database import connectDB
 
-def get_hardest_question(round_id= 1):
+
+def get_hardest_question(round_id=1):
     connection = connectDB()
-    query = f'''
+    query = f"""
     SELECT
     r.rounds
     ,q.difficulty
     ,sum(a.is_correct) as total_correct
-    ,q.id as q
+    ,q.id as question_id
     ,q.question_text
     ,a.answer_text
-	-- ,u.squad
     FROM
         user_answers AS ua
             LEFT JOIN
@@ -26,12 +26,11 @@ def get_hardest_question(round_id= 1):
     r.rounds
     ,q.id
 	,q.difficulty
-   --  ,u.squad
    ,q.question_text
     ,a.answer_text
-    ORDER BY rounds,total_correct asc, q
+    ORDER BY rounds,total_correct asc, question_id
     LIMIT 1
-    '''
+    """
     cursor = connection.cursor()
     cursor.execute(query)
     data = cursor.fetchall()
@@ -40,14 +39,14 @@ def get_hardest_question(round_id= 1):
     return data
 
 
-def get_easiest_question(round_id= 1):
+def get_easiest_question(round_id=1):
     connection = connectDB()
-    query = f'''
+    query = f"""
     SELECT
     r.rounds
     ,q.difficulty
     ,sum(a.is_correct) as total_correct
-    ,q.id as q
+    ,q.id as question_id
     ,q.question_text
     ,a.answer_text
 	-- ,u.squad
@@ -69,9 +68,9 @@ def get_easiest_question(round_id= 1):
    --  ,u.squad
    ,q.question_text
     ,a.answer_text
-    ORDER BY rounds,total_correct desc, q
+    ORDER BY rounds,total_correct desc, question_id
     LIMIT 1
-    '''
+    """
     cursor = connection.cursor()
     cursor.execute(query)
     data = cursor.fetchall()
