@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styles from "./dashboard.module.css";
 import Individual from "./individual/Individual";
 import Squad from "./squad/Squad";
-import GroupedBarChart from "../../components/graphs/GroupedBarChart";
 
 const Dashboard = () => {
   const [active, setActive] = useState("individual");
@@ -28,7 +27,6 @@ const Dashboard = () => {
       <div className={styles.outlet}>
         {active === "individual" ? <Individual /> : <Squad />}
       </div>
-      <GroupedBarChart />
     </div>
   );
 };
