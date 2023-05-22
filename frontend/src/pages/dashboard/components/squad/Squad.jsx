@@ -20,6 +20,7 @@ const Squad = () => {
   return (
     <div>
       {loading && <div>LOADING!</div>}
+      <h2>Dashboard</h2>
       <div className={styles.leaderboard}>
         {userData && <Leaderboard userData={userData} type="squad" />}
       </div>

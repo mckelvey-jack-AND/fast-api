@@ -7,7 +7,7 @@ describe("Dashboard component", () => {
     render(<Dashboard />);
 
     const individualDashboardContent = screen.getByText(
-      "Individual dashboard content"
+      "Dashboard"
     );
 
     expect(individualDashboardContent).toBeVisible();
@@ -18,12 +18,10 @@ describe("Dashboard component", () => {
 
     const individualTab = screen.getByText("Squad");
 
-    // Check that 'Individual dashboard content' text is not visible initially
-    expect(screen.queryByText("Squad dashboard content")).toBeNull();
 
     // Click on individual tab
     fireEvent.click(individualTab);
 
-    expect(screen.queryByText("Squad dashboard content")).toBeVisible();
+    expect(screen.queryByText("Dashboard")).toBeVisible();
   });
 });

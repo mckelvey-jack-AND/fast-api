@@ -3,11 +3,10 @@ import { render, screen } from "@testing-library/react";
 import Individual from "./Individual";
 
 describe("Individual component", () => {
-  it("should render Individual dashboard content", () => {
+  it("should render dashboard content", () => {
     render(<Individual />);
-
     const individualDashboardContent = screen.getByText(
-      "Individual dashboard content"
+      "Dashboard"
     );
 
     expect(individualDashboardContent).toBeVisible();
