@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from queries.correct_answers import get_correct_answers
 from helpers.correct_answer_fotmat import group_by_rounds
-from queries.question_difficulty import get_question_difficulty
+from queries.question_difficulty import get_easiest_question, get_hardest_question
 
 app = FastAPI()
 
@@ -34,8 +34,8 @@ async def read_correct_answers() -> dict:
 
 @app.get("/squad-questions-difficulty", tags=["root"])
 async def read_question_difficulty() -> dict:
-    hardest_question = get_question_difficulty(order="ASC")
-    easiest_question = get_question_difficulty(order="DESC")
+    hardest_question = get_hardest_question()
+    easiest_question = get_easiest_question()
 
     return {
         "data": {
@@ -43,5 +43,3 @@ async def read_question_difficulty() -> dict:
             "easiest_question": easiest_question,
         }
     }
-    # return {"data": {"hardest_question":hardest_question[0]["question_text"], "easiest_question": easiest_question[0]["question_text"]}}
-    # print(difficulty)
