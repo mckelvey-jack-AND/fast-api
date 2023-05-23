@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Card from "./Card";
+import Card from "./Card/Card";
 import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 import styles from "./questionDifficulty.module.css";
