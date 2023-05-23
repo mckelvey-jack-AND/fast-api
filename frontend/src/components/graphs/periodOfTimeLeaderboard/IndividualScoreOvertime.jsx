@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
@@ -7,11 +6,12 @@ import {
   Line,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
-  Legend,
+  CartesianGrid,
+  ResponsiveContainer,
 } from "recharts";
 import styles from "./individualScoreOvertime.module.css";
+import CustomToolTip from "./CustomToolTip";
 
 const IndividualScoreOvertime = () => {
   const {
@@ -21,7 +21,6 @@ const IndividualScoreOvertime = () => {
   } = useFetch("/individual-score-overtime");
   const navigate = useNavigate();
 
-  console.log({ graphData });
   useEffect(() => {
     error && navigate("/error");
   }, [error]);
@@ -29,15 +28,36 @@ const IndividualScoreOvertime = () => {
   return (
     <div className={styles.graph_container}>
       {loading && <div>Loading...</div>}
-
-      <LineChart width={500} height={250} data={graphData}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="rounds" />
-        <YAxis reversed={true} />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="position" stroke="#B21F2B" />
-      </LineChart>
+      <div style={{ height: "400px", width: "100%" }}>
+        <ResponsiveContainer width={"100%"} height="100%">
+          <LineChart data={graphData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="rounds"
+              label={{
+                value: "Quiz round",
+                position: "insideBottomLeft",
+                offset: -20,
+              }}
+            />
+            <YAxis
+              type="number"
+              domain={[1, "dataMax"]}
+              reversed={true}
+              tickCount={5}
+              interval={"preserveStart"}
+              label={{
+                value: "Leaderboard Position",
+                angle: -90,
+                fontSize: 16,
+                position: "insideLeft",
+              }}
+            />
+            <Tooltip content={<CustomToolTip />} />
+            <Line type="monotone" dataKey="position" stroke="#B21F2B" />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };

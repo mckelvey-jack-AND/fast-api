@@ -3,4 +3,12 @@
   justify-content: center;
   align-items: center;
   padding: 1.5rem 0;
+  margin: 1rem 0;
+}
+
+.custom_tooltip_container p {
+  color: #333;
+}
+p.custom_tooltip_leadership {
+  color: #b21f2b;
 }
