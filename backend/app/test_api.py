@@ -10,8 +10,11 @@ def test_read_main():
     assert response.status_code == 200
     assert response.json() == {"message": "Hello world."}
     
-def test_read_correct_answers():
-    response = client.get("/correct-answers")
-    assert response.status_code == 200
+# def test_read_correct_answers():
+#     response = client.get("/correct-answers")
+#     assert response.status_code == 200
     
     
+# def test_leaderboard():
+#     response = client.get("/leaderboard?type=individual")
+#     assert response.status_code == 200

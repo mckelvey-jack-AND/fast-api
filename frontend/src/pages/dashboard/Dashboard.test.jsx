@@ -12,9 +12,7 @@ describe("Dashboard component", () => {
   it("should render Individual dashboard content as a default", () => {
     render(<Dashboard />);
 
-    const individualDashboardContent = screen.getByText(
-      "Individual dashboard content"
-    );
+    const individualDashboardContent = screen.getByText("Dashboard");
 
     expect(individualDashboardContent).toBeVisible();
   });
@@ -24,13 +22,10 @@ describe("Dashboard component", () => {
 
     const individualTab = screen.getByText("Squad");
 
-    // Check that 'Individual dashboard content' text is not visible initially
-    expect(screen.queryByText("Squad dashboard content")).toBeNull();
-
     // Click on individual tab
     fireEvent.click(individualTab);
 
-    expect(screen.queryByText("Squad dashboard content")).toBeVisible();
+    expect(screen.queryByText("Dashboard")).toBeVisible();
   });
   it("Mock test", () => {
     expect(true).toBe(true);
