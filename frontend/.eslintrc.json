@@ -20,7 +20,7 @@
   "plugins": ["react"],
   "rules": {
     "no-console": "error",
-    "react/prop-types": 0
+    "react/prop-types": "off"
   },
   "settings": {
     "react": {

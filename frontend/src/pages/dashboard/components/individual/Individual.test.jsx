@@ -9,12 +9,9 @@ jest.mock("react-router-dom", () => ({
 }));
 
 describe("Individual component", () => {
-  it("should render Individual dashboard content", () => {
+  it("should render dashboard content", () => {
     render(<Individual />);
-
-    const individualDashboardContent = screen.getByText(
-      "Individual dashboard content"
-    );
+    const individualDashboardContent = screen.getByText("Dashboard");
 
     expect(individualDashboardContent).toBeVisible();
   });
