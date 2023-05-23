@@ -22,7 +22,7 @@ const GroupedBarChart = () => {
     <div>
       {loading && <div>Loading...</div>}
 
-      <BarChart width={730} height={250} data={graphData}>
+      <BarChart width={500} height={250} data={graphData}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
