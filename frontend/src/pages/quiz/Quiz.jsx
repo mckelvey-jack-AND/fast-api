@@ -2,20 +2,22 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./quiz.module.css";
+import QuizDashboard from './QuizDashboard'
 
 const Quiz = () => {
-  //const [quizData, setQuizData] = useState(null);
-  const [question, setQuestion] = useState("");
+  const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [endQuiz, setEndQuiz] = useState(false);
-  const [correctAnswer, setCorrectAnswer] = useState("");
+  const [correctAnswer, setCorrectAnswer] = useState(null);
   const [totalCorrectAnswer, setTotalCorrectAnswer] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
-  const handleNextClick = (answer) => {
+  const handleClick = (answer) => {
+  console.log(answer)
     if (currentQuestion === 40) {
       setEndQuiz(true);
     }
+    console.log(answer,correctAnswer);
     if (answer === correctAnswer) {
       setTotalCorrectAnswer(totalCorrectAnswer + 1);
     }
@@ -23,12 +25,11 @@ const Quiz = () => {
     questionDB();
   };
 
-  
   const questionDB = async () => {
     try {
       let res = await axios.get('/quiz');
       let result = res.data;
-     
+
       setQuestion(result.data[currentQuestion].question_text);
       setAnswers(
         [result.data[currentQuestion].answer_text,
@@ -36,12 +37,12 @@ const Quiz = () => {
         result.data[currentQuestion+2].answer_text,
         result.data[currentQuestion+3].answer_text]);
         if (result.data[currentQuestion].isCorrect === 1) {
-          setCorrectAnswer(result.data[currentQuestion]);
-        } else if (result.data[currentQuestion+1].answer_text){
+          setCorrectAnswer(result.data[currentQuestion].answer_text);
+        } else if (result.data[currentQuestion+1].isCorrect === 1){
           setCorrectAnswer(result.data[currentQuestion+1].answer_text);
-        } else if (result.data[currentQuestion+2].answer_text){
+        } else if (result.data[currentQuestion+2].isCorrect === 1){
           setCorrectAnswer(result.data[currentQuestion+2].answer_text);
-        } else if (result.data[currentQuestion+3].answer_text){
+        } else if (result.data[currentQuestion+3].isCorrect === 1){
           setCorrectAnswer(result.data[currentQuestion+3].answer_text);
         }
     } catch (e) {
@@ -56,16 +57,14 @@ const Quiz = () => {
   return (
     <div>
         {endQuiz ? (
-          <>
-            <div className={styles.question}> Quiz End!</div>
-            <div>{totalCorrectAnswer - 1} correct answers</div>
-          </>
+          <QuizDashboard totalCorrectAnswer={totalCorrectAnswer}/>
         ) : (
           <>
-            <div className={styles.question}>{question}</div>
+          <div className={styles.progressBar}>Question{currentQuestion/4}/10</div>
+            <div className={styles.question}> {question} </div>
             <div className={styles.answer}>
                 {answers.map((answer, index) => {
-                  return <button key={index} className={styles.button_answer} onClick={() => handleNextClick(answer)}>{answer}</button>
+                  return <button key={index} className={styles.button_answer} onClick={() => handleClick(answer)}>{answer}</button>
                 })}
               </div>
           </>

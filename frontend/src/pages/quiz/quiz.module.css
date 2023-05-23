@@ -19,27 +19,44 @@
   color: #000000;
 }
 .answer {
-    position: absolute;
-    width: 400px;
-    left: 19px;
-    top: 400px;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 22px;
-    align-items: center;
-    color: #000000;
+  position: absolute;
+  width: 400px;
+  top: 400px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  align-items: center;
+  color: #000000;
 }
 .button_answer {
   color: black;
   font-size: 25px;
-  margin-bottom: 100px;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   margin: 0 auto;
   display: block;
   margin-top: 20px;
+  width: 200px;
 }
-.button_answer:hover{
-    background-color: rgb(206, 206, 206);
+.button_answer:hover {
+  background-color: rgb(206, 206, 206);
 }
-
+.progressBar {
+  font-family: "Open Sans";
+  font-style: normal;
+  margin-left: 25px;
+  margin-top: 30px;
+  font-weight: 500;
+  font-size: 24px;
+  display: flex;
+  color: #000000;
+}
+.dashboard {
+  float: left;
+  margin-top: 400px;
+  margin-left: 40px;
+}
+.links {
+  margin-top: 100px;
+  display: inline-block;
+}
