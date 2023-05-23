@@ -6,6 +6,7 @@ const Card = ({ title, question, type }) => {
       className={`${
         type === "easy" ? styles.easy_container : styles.hard_container
       } ${styles.card}`}
+      data-testid={type}
     >
       <h2 className={styles.card_title}>{title}</h2>
       <div className={styles.correct_count}>2/10</div>
