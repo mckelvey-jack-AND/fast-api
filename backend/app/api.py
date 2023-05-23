@@ -1,5 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from queries.correct_answers import get_correct_answers
+from helpers.correct_answer_fotmat import group_by_rounds
 from queries.leaderboard import get_leaderboard_data
 from queries.quizQuestions import get_quiz_data
 
@@ -16,17 +18,26 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/", tags=["root"])
 async def read_root() -> dict:
-    
     return {"message": "Hello world."}
+
+
+@app.get("/correct-answers")
+def read_correct_answers():
+    answers = get_correct_answers()
+
+    quiz_rounds = group_by_rounds(answers)
+
+    return {"data": quiz_rounds}
+
 
 @app.get("/leaderboard")
 def get_data(type: str):
-
-    if type != "squad" and type != 'individual':
+    if type != "squad" and type != "individual":
         raise HTTPException(status_code=404, detail="Type must be individual or squad")
-    
+
     data = get_leaderboard_data(type)
     return {"data": data}
 

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import Leaderboard from "../leaderboard/Leaderboard";
 import useFetch from "../../../../hooks/useFetch";
 import styles from "./individual.module.css";
-
+import GroupedBarChart from "../../../../components/graphs/GroupedBarChart";
 const Individual = () => {
   const {
     data: userData,
@@ -22,7 +22,12 @@ const Individual = () => {
       {loading && <div>LOADING!</div>}
       <h2>Dashboard</h2>
       <div className={styles.leaderboard}>
-        {userData && <Leaderboard userData={userData} type="individual" />}
+        {userData && (
+          <>
+            <Leaderboard userData={userData} type="individual" />
+            <GroupedBarChart />
+          </>
+        )}
       </div>
     </div>
   );

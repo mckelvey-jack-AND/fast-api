@@ -19,8 +19,8 @@
   },
   "plugins": ["react"],
   "rules": {
-    "no-console": "off",
-    "react/prop-types":"off"
+    "no-console": "error",
+    "react/prop-types": "off"
   },
   "settings": {
     "react": {
