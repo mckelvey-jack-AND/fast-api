@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./quiz.module.css";
-import QuizDashboard from './QuizDashboard'
+import QuizResult from './QuizResult'
 
 const Quiz = () => {
   const [question, setQuestion] = useState(null);
@@ -57,10 +57,10 @@ const Quiz = () => {
   return (
     <div>
         {endQuiz ? (
-          <QuizDashboard totalCorrectAnswer={totalCorrectAnswer}/>
+          <QuizResult totalCorrectAnswer={totalCorrectAnswer}/>
         ) : (
           <>
-          <div className={styles.progressBar}>Question{currentQuestion/4}/10</div>
+          <div className={styles.progressBar}>Question {currentQuestion/4}/10</div>
             <div className={styles.question}> {question} </div>
             <div className={styles.answer}>
                 {answers.map((answer, index) => {
