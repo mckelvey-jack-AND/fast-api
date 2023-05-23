@@ -24,7 +24,7 @@ async def read_root() -> dict:
 
 
 @app.get("/correct-answers")
-async def read_correct_answers() -> dict:
+def read_correct_answers():
     answers = get_correct_answers()
 
     quiz_rounds = group_by_rounds(answers)
