@@ -10,7 +10,7 @@ const QuizResult = (props) => {
         <div className={styles.question}>
           <div className={styles.score}>Score</div>
           <div className={styles.yourScore}>Your Score</div>
-          <div className={styles.precentage}>{(props.totalCorrectAnswer - 1)*10}%</div>
+          <div className={styles.precentage}>{(props.totalCorrectAnswer )*10}%</div>
         </div>
 
           <button className={styles.dashboard}><Link to="/dashboard" className={styles.resultLink}> See dashboard</Link></button>
