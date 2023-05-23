@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import styles from "./quiz.module.css";
 import QuizResult from './QuizResult'
 
@@ -25,31 +24,58 @@ const Quiz = () => {
     questionDB();
   };
 
+  // const questionDB = async () => {
+  //   try {
+  //     let res = await axios.get('/quiz');
+  //     let result = res.data;
+
+  //     setQuestion(result.data[currentQuestion].question_text);
+  //     setAnswers(
+  //       [result.data[currentQuestion].answer_text,
+  //       result.data[currentQuestion+1].answer_text,
+  //       result.data[currentQuestion+2].answer_text,
+  //       result.data[currentQuestion+3].answer_text]);
+  //       if (result.data[currentQuestion].isCorrect === 1) {
+  //         setCorrectAnswer(result.data[currentQuestion].answer_text);
+  //       } else if (result.data[currentQuestion+1].isCorrect === 1){
+  //         setCorrectAnswer(result.data[currentQuestion+1].answer_text);
+  //       } else if (result.data[currentQuestion+2].isCorrect === 1){
+  //         setCorrectAnswer(result.data[currentQuestion+2].answer_text);
+  //       } else if (result.data[currentQuestion+3].isCorrect === 1){
+  //         setCorrectAnswer(result.data[currentQuestion+3].answer_text);
+  //       }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }
+   
   const questionDB = async () => {
     try {
-      let res = await axios.get('/quiz');
-      let result = res.data;
-
+      const res = await fetch('/quiz');
+      const result = await res.json();
+  
       setQuestion(result.data[currentQuestion].question_text);
-      setAnswers(
-        [result.data[currentQuestion].answer_text,
-        result.data[currentQuestion+1].answer_text,
-        result.data[currentQuestion+2].answer_text,
-        result.data[currentQuestion+3].answer_text]);
-        if (result.data[currentQuestion].isCorrect === 1) {
-          setCorrectAnswer(result.data[currentQuestion].answer_text);
-        } else if (result.data[currentQuestion+1].isCorrect === 1){
-          setCorrectAnswer(result.data[currentQuestion+1].answer_text);
-        } else if (result.data[currentQuestion+2].isCorrect === 1){
-          setCorrectAnswer(result.data[currentQuestion+2].answer_text);
-        } else if (result.data[currentQuestion+3].isCorrect === 1){
-          setCorrectAnswer(result.data[currentQuestion+3].answer_text);
-        }
+      setAnswers([
+        result.data[currentQuestion].answer_text,
+        result.data[currentQuestion + 1].answer_text,
+        result.data[currentQuestion + 2].answer_text,
+        result.data[currentQuestion + 3].answer_text
+      ]);
+  
+      if (result.data[currentQuestion].isCorrect === 1) {
+        setCorrectAnswer(result.data[currentQuestion].answer_text);
+      } else if (result.data[currentQuestion + 1].isCorrect === 1) {
+        setCorrectAnswer(result.data[currentQuestion + 1].answer_text);
+      } else if (result.data[currentQuestion + 2].isCorrect === 1) {
+        setCorrectAnswer(result.data[currentQuestion + 2].answer_text);
+      } else if (result.data[currentQuestion + 3].isCorrect === 1) {
+        setCorrectAnswer(result.data[currentQuestion + 3].answer_text);
+      }
     } catch (e) {
       console.log(e);
     }
   }
-   
+  
   useEffect( () => {
     questionDB()
   }, []);
@@ -60,9 +86,9 @@ const Quiz = () => {
           <QuizResult totalCorrectAnswer={totalCorrectAnswer}/>
         ) : (
           <>
-          <div className={styles.progressBar}>Question {currentQuestion/4}/10</div>
-            <div className={styles.question}> {question} </div>
-            <div className={styles.answer}>
+          <div className={styles.progressBar}><p>Question </p> {currentQuestion/4}/10</div>
+            <div className={styles.question} data-testid="question"> {question} </div>
+            <div className={styles.answer} data-testid="answers">
                 {answers.map((answer, index) => {
                   return <button key={index} className={styles.button_answer} onClick={() => handleClick(answer)}>{answer}</button>
                 })}
