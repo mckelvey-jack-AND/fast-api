@@ -23,7 +23,7 @@ async def read_root() -> dict:
     return {"message": "Hello world."}
 
 
-@app.get("/correct-answers", tags=["root"])
+@app.get("/correct-answers")
 async def read_correct_answers() -> dict:
     answers = get_correct_answers()
 
