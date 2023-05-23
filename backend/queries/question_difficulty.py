@@ -4,31 +4,34 @@ from database import connectDB
 def get_hardest_question(round_id=1):
     connection = connectDB()
     query = f"""
-    SELECT
-    r.rounds
-    ,q.difficulty
-    ,sum(a.is_correct) as total_correct
-    ,q.id as question_id
-    ,q.question_text
-    ,a.answer_text
+    SELECT 
+        rounds,
+        question,
+        question_text,
+        difficulty,
+        total_correct,
+        answer_text
     FROM
-        user_answers AS ua
-            LEFT JOIN
-        users AS u ON u.id = ua.user_id
-            LEFT JOIN
-        questions AS q ON q.id = ua.question_id
-            LEFT JOIN
-        answers AS a ON a.id = ua.answer_id
-            LEFT JOIN
-        rounds AS r ON r.id = ua.rounds_id
-        WHERE r.id = {round_id}
-    group by
-    r.rounds
-    ,q.id
-	,q.difficulty
-   ,q.question_text
-    ,a.answer_text
-    ORDER BY rounds,total_correct asc, question_id
+        answers
+            INNER JOIN
+        (SELECT 
+            r.rounds,
+                q.id AS question,
+                q.question_text,
+                q.difficulty,
+                COALESCE(SUM(a.is_correct), 0) AS total_correct
+        FROM
+            user_answers AS ua
+        LEFT JOIN users AS u ON u.id = ua.user_id
+        LEFT JOIN questions AS q ON q.id = ua.question_id
+        LEFT JOIN answers AS a ON a.id = ua.answer_id
+        LEFT JOIN rounds AS r ON r.id = ua.rounds_id
+        WHERE
+            r.id = {round_id}
+        GROUP BY r.rounds , q.difficulty , question , q.question_text
+        ORDER BY rounds , total_correct ASC , question) query ON query.question = answers.question_id
+    WHERE
+        answers.is_correct
     LIMIT 1
     """
     cursor = connection.cursor()
@@ -42,33 +45,34 @@ def get_hardest_question(round_id=1):
 def get_easiest_question(round_id=1):
     connection = connectDB()
     query = f"""
-    SELECT
-    r.rounds
-    ,q.difficulty
-    ,sum(a.is_correct) as total_correct
-    ,q.id as question_id
-    ,q.question_text
-    ,a.answer_text
-	-- ,u.squad
+    SELECT 
+        rounds,
+        question,
+        question_text,
+        difficulty,
+        total_correct,
+        answer_text
     FROM
-        user_answers AS ua
-            LEFT JOIN
-        users AS u ON u.id = ua.user_id
-            LEFT JOIN
-        questions AS q ON q.id = ua.question_id
-            LEFT JOIN
-        answers AS a ON a.id = ua.answer_id
-            LEFT JOIN
-        rounds AS r ON r.id = ua.rounds_id
-        WHERE r.id = {round_id}
-    group by
-    r.rounds
-    ,q.id
-	,q.difficulty
-   --  ,u.squad
-   ,q.question_text
-    ,a.answer_text
-    ORDER BY rounds,total_correct desc, question_id
+        answers
+            INNER JOIN
+        (SELECT 
+            r.rounds,
+                q.id AS question,
+                q.question_text,
+                q.difficulty,
+                COALESCE(SUM(a.is_correct), 0) AS total_correct
+        FROM
+            user_answers AS ua
+        LEFT JOIN users AS u ON u.id = ua.user_id
+        LEFT JOIN questions AS q ON q.id = ua.question_id
+        LEFT JOIN answers AS a ON a.id = ua.answer_id
+        LEFT JOIN rounds AS r ON r.id = ua.rounds_id
+        WHERE
+            r.id = {round_id}
+        GROUP BY r.rounds , q.difficulty , question , q.question_text
+        ORDER BY rounds , total_correct DESC , question) query ON query.question = answers.question_id
+    WHERE
+        answers.is_correct
     LIMIT 1
     """
     cursor = connection.cursor()

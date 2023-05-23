@@ -39,6 +39,7 @@ PYTHON_STAGED_FILES=($(git diff --cached --name-only --diff-filter=ACM | grep ".
 if [[ "$PYTHON_STAGED_FILES" ]]; then
   cd backend && source venv/bin/activate && cd .. && black $PYTHON_STAGED_FILES --quiet
   printf "\033[32m\xE2\x9C\x85 black \033[0m \n"
+  git add "${PYTHON_STAGED_FILES[@]}"
   else
   printf "\033[36m black skipped  (no files to check) \033[0m \n"
 fi
