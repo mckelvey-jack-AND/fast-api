@@ -4,7 +4,10 @@ from queries.correct_answers import get_correct_answers
 from helpers.correct_answer_fotmat import group_by_rounds
 from queries.question_difficulty import get_easiest_question, get_hardest_question
 from queries.leaderboard import get_leaderboard_data
-from queries.score_overtime import get_individual_score_overtime
+from queries.score_overtime import (
+    get_individual_score_overtime,
+    get_squad_score_overtime,
+)
 
 app = FastAPI()
 
@@ -56,9 +59,17 @@ async def read_question_difficulty() -> dict:
     }
 
 
-@app.get("/individual-score-overtime")
-async def read_individual_score_overtime() -> dict:
-    individual_score_overtime = get_individual_score_overtime(1)
+@app.get("/leaderboard-score-overtime")
+async def read_leaderboard_score_overtime(type: str) -> dict:
+    print(type)
+    if type != "squad" and type != "individual":
+        raise HTTPException(status_code=404, detail="Type must be individual or squad")
+
+    leaderboard_score_overtime = (
+        get_individual_score_overtime(1)
+        if type == "individual"
+        else get_squad_score_overtime("squad_1")
+    )
     return {
-        "data": individual_score_overtime,
+        "data": leaderboard_score_overtime,
     }

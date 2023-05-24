@@ -32,3 +32,32 @@ def  get_individual_score_overtime(user_id):
     connection.close()
     return data
 
+
+def get_squad_score_overtime(squad_name):
+    connection = connectDB()
+    query = f"""
+     SELECT squad, rounds, total_score, position from (SELECT 
+    rounds.rounds,
+    users.squad,
+    SUM(answers.is_correct) AS 'total_score',
+    RANK() OVER(PARTITION BY rounds ORDER BY SUM(answers.is_correct) DESC) 'position'
+        FROM
+            user_answers
+                LEFT JOIN
+            users ON users.ID = user_answers.user_id
+                LEFT JOIN
+            answers ON answers.id = user_answers.answer_id
+            LEFT JOIN
+            rounds ON rounds.id = user_answers.rounds_id
+    WHERE
+     answers.is_correct = 1
+    GROUP BY squad, rounds
+    ORDER BY rounds, total_score DESC) as sub
+    where squad = "{squad_name}"
+    """
+    cursor = connection.cursor()
+    cursor.execute(query)
+    data = cursor.fetchall()
+    cursor.close()
+    connection.close()
+    return data

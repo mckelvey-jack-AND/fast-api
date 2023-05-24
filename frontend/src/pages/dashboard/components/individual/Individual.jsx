@@ -5,7 +5,8 @@ import useFetch from "../../../../hooks/useFetch";
 import styles from "./individual.module.css";
 import GroupedBarChart from "../../../../components/graphs/GroupedBarChart";
 import QuestionDifficulty from "../../../../components/questionDifficulty/QuestionDifficulty";
-import IndividualScoreOvertime from "../../../../components/graphs/periodOfTimeLeaderboard/IndividualScoreOvertime";
+import OvertimeChart from "../../../../components/graphs/overtimeChart/OvertimeChart";
+// import IndividualScoreOvertime from "../../../../components/visualisations/periodOfTimeLeaderboard/individual/IndividualScoreOvertime";
 const Individual = () => {
   const {
     data: userData,
@@ -29,7 +30,8 @@ const Individual = () => {
             <Leaderboard userData={userData} type="individual" />
             <GroupedBarChart />
             <QuestionDifficulty />
-            <IndividualScoreOvertime />
+            {/* <IndividualScoreOvertime /> */}
+            <OvertimeChart type="individual" />
           </>
         )}
       </div>

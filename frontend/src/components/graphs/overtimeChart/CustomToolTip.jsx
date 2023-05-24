@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./individualScoreOvertime.module.css";
+import styles from "./overtimeChart.module.css";
 const CustomToolTip = ({ active, payload }) =>
   active &&
   payload &&

@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import useFetch from "../../../hooks/useFetch";
 import {
   LineChart,
   Line,
@@ -10,15 +8,17 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
-import styles from "./individualScoreOvertime.module.css";
 import CustomToolTip from "./CustomToolTip";
+import useFetch from "../../../hooks/useFetch";
+import { useNavigate } from "react-router-dom";
+import styles from "./overtimeChart.module.css";
 
-const IndividualScoreOvertime = () => {
+const OvertimeChart = ({ type }) => {
   const {
     data: graphData,
     error,
     loading,
-  } = useFetch("/individual-score-overtime");
+  } = useFetch("/leaderboard-score-overtime", { type: type });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,7 +28,11 @@ const IndividualScoreOvertime = () => {
   return (
     <div className={styles.graph_container}>
       {loading && <div>Loading...</div>}
-      <div style={{ height: "400px", width: "100%" }}>
+      <div className={styles.graph_chart}>
+        <h3 className={styles.chart_header}>
+          {`${type} Leaderboard over a period of time`}
+        </h3>
+
         <ResponsiveContainer width={"100%"} height="100%">
           <LineChart data={graphData}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -62,4 +66,4 @@ const IndividualScoreOvertime = () => {
   );
 };
 
-export default IndividualScoreOvertime;
+export default OvertimeChart;
