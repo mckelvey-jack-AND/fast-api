@@ -23,11 +23,9 @@ def get_quiz_data():
     cursor = connection.cursor()
 
     questions_query = f'''
-    SELECT questions.question_text, answers.answer_text, MAX(answers.is_correct) as isCorrect FROM user_answers
-    LEFT JOIN questions ON questions.id = user_answers.question_id
-    LEFT JOIN answers ON answers.id = user_answers.answer_id
-    GROUP BY questions.question_text, answers.answer_text
-    ORDER BY questions.question_text
+    SELECT questions.question_text, answers.answer_text, answers.is_correct AS isCorrect FROM questions
+    JOIN answers ON questions.id = answers.question_id
+    ORDER BY questions.id DESC,RAND()
     LIMIT 40;
     '''
 
