@@ -57,7 +57,7 @@ const Quiz = () => {
   return (
     <div>
       {endQuiz ? (
-        <QuizResult totalCorrectAnswer={totalCorrectAnswer} />
+        <QuizResult totalCorrectAnswer={totalCorrectAnswer} allAnswers={allAnswers} />
       ) : (
         <>
           <div className={styles.progressBar}>

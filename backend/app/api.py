@@ -4,10 +4,13 @@ from queries.correct_answers import get_correct_answers
 from helpers.correct_answer_fotmat import group_by_rounds
 from queries.leaderboard import get_leaderboard_data
 from queries.quizQuestions import get_quiz_data
+from pydantic import BaseModel
+from typing import List
 
 app = FastAPI()
 
-origins = ["http://localhost:3000", "localhost:3000"]
+
+origins = ["http://localhost:3000", "localhost:3000", "http://localhost:3001"]
 
 
 app.add_middleware(
@@ -17,6 +20,16 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+class Answer(BaseModel):
+    answers: List[str]
+
+@app.post("/answers")
+async def handle_answers(answer: Answer):
+    received_answers = answer.answers
+    response_data = {"answers": received_answers}
+    return response_data
 
 
 @app.get("/", tags=["root"])

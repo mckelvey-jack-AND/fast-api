@@ -1,8 +1,31 @@
 import { Link } from "react-router-dom";
-import React from "react";
+import React, {useEffect} from "react";
 import styles from "./quizResult.module.css";
 
 const QuizResult = (props) => {
+
+  const all= props.allAnswers
+ 
+  const sendDataToServer =  () => {
+    try {
+        fetch('http://127.0.0.1:8000/answers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ answers: all })
+      });
+  
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
+
+  useEffect(()=>{
+    sendDataToServer()
+  },[])
+
   return (
     <>
       <div className={styles.results}> Results</div>
