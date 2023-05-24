@@ -25,11 +25,17 @@ app.add_middleware(
 
 class Answer(BaseModel):
     answers: List[str]
+    roundId: List[str]
+    questionId: List[str]
+    answerId: List[str]
 
 @app.post("/answers")
 async def handle_answers(answer: Answer):
     received_answers = answer.answers
-    response_data = post_quiz_answers(received_answers)
+    roundId = answer.roundId
+    questionId = answer.questionId
+    answerId = answer.answerId
+    response_data = post_quiz_answers(received_answers, roundId, questionId, answerId)
     return {"data": response_data}
 
 

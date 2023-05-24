@@ -4,7 +4,10 @@ import styles from "./quizResult.module.css";
 
 const QuizResult = (props) => {
 
-  const all= props.allAnswers
+  const allAnswers= [...props.allAnswers].reverse();
+  const roundId= props.roundId;
+  const questionId = [...props.questionId].reverse();
+  const answerId = [...props.answerId].reverse();
  
   const sendDataToServer =  () => {
     try {
@@ -13,7 +16,7 @@ const QuizResult = (props) => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ answers: all })
+        body: JSON.stringify({ answers: allAnswers, roundId:roundId, questionId:questionId, answerId:answerId  })
       });
   
     } catch (error) {
@@ -24,7 +27,7 @@ const QuizResult = (props) => {
 
   useEffect(()=>{
     sendDataToServer()
-  },[])
+  },[allAnswers])
 
   return (
     <>

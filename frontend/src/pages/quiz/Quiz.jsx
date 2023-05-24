@@ -11,6 +11,9 @@ const Quiz = () => {
   const [totalCorrectAnswer, setTotalCorrectAnswer] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [allAnswers, setAllAnswers] = useState([]);
+  const[roundId, setRoundId]=useState([]);
+  const [answerId, setAnswerId] =useState([]);
+  const [questionId, setQuestionId] =useState([]);
 
   const handleClick = (answer) => {
     if (endQuiz) {
@@ -19,10 +22,11 @@ const Quiz = () => {
     if (currentQuestion === 36) {
       setEndQuiz(true);
     }
-    if (answer === correctAnswer) {
+    if (answer.text === correctAnswer) {
       setTotalCorrectAnswer(totalCorrectAnswer + 1);
     }
-    setAllAnswers([...allAnswers, answer]);
+    setAllAnswers([...allAnswers, answer.text]);
+    setAnswerId([...answerId, answer.id])
     setCurrentQuestion(currentQuestion + 4);
   };
 
@@ -30,15 +34,29 @@ const Quiz = () => {
     try {
       const res = await fetch("/quiz");
       const result = await res.json();
-
       setQuestion(result.data[currentQuestion].question_text);
-      setAnswers([
-        result.data[currentQuestion].answer_text,
-        result.data[currentQuestion + 1].answer_text,
-        result.data[currentQuestion + 2].answer_text,
-        result.data[currentQuestion + 3].answer_text,
-      ]);
+      setQuestionId([...questionId, result.data[currentQuestion].question_id]);
+      setRoundId([...roundId, result.data[currentQuestion].round_id]);
 
+      setAnswers([
+        {
+          text: result.data[currentQuestion].answer_text,
+          id: result.data[currentQuestion].answer_id
+        },
+        {
+          text: result.data[currentQuestion + 1].answer_text,
+          id: result.data[currentQuestion + 1].answer_id
+        },
+        {
+          text: result.data[currentQuestion + 2].answer_text,
+          id: result.data[currentQuestion + 2].answer_id
+        },
+        {
+          text: result.data[currentQuestion + 3].answer_text,
+          id: result.data[currentQuestion + 3].answer_id
+        }
+      ]);
+      
       if (result.data[currentQuestion].isCorrect === 1) {
         setCorrectAnswer(result.data[currentQuestion].answer_text);
       } else if (result.data[currentQuestion + 1].isCorrect === 1) {
@@ -60,7 +78,7 @@ const Quiz = () => {
   return (
     <div>
       {endQuiz ? (
-        <QuizResult totalCorrectAnswer={totalCorrectAnswer} allAnswers={allAnswers} />
+        <QuizResult totalCorrectAnswer={totalCorrectAnswer} allAnswers={allAnswers} answerId={answerId} roundId={roundId}  questionId={questionId}/>
       ) : (
         <>
           <div className={styles.progressBar}>
@@ -78,7 +96,7 @@ const Quiz = () => {
                   className={styles.button_answer}
                   onClick={() => handleClick(answer)}
                 >
-                  {answer}
+                  {answer.text}
                 </button>
               );
             })}
