@@ -6,7 +6,8 @@ import styles from "./individual.module.css";
 import GroupedBarChart from "../../../../components/graphs/GroupedBarChart";
 import QuestionDifficulty from "../../../../components/questionDifficulty/QuestionDifficulty";
 import OvertimeChart from "../../../../components/graphs/overtimeChart/OvertimeChart";
-// import IndividualScoreOvertime from "../../../../components/visualisations/periodOfTimeLeaderboard/individual/IndividualScoreOvertime";
+import BestWorseResults from "../../../../components/resultCards/BestWorseResults";
+
 const Individual = () => {
   const {
     data: userData,
@@ -30,8 +31,8 @@ const Individual = () => {
             <Leaderboard userData={userData} type="individual" />
             <GroupedBarChart />
             <QuestionDifficulty />
-            {/* <IndividualScoreOvertime /> */}
             <OvertimeChart type="individual" />
+            <BestWorseResults type="individual" />
           </>
         )}
       </div>
