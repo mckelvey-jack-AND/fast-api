@@ -7,7 +7,12 @@ jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: () => mockedUsedNavigate,
 }));
-
+class ResizeObserver {
+  observe = () => {};
+  unobserve = () => {};
+  disconnect = () => {};
+}
+window.ResizeObserver = ResizeObserver;
 describe("Squad component", () => {
   it("should render dashboard content", () => {
     render(<Squad />);
