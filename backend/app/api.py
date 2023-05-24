@@ -4,6 +4,7 @@ from queries.correct_answers import get_correct_answers
 from helpers.correct_answer_fotmat import group_by_rounds
 from queries.leaderboard import get_leaderboard_data
 from queries.quizQuestions import get_quiz_data
+from queries.quizAnswers import post_quiz_answers
 from pydantic import BaseModel
 from typing import List
 
@@ -28,8 +29,8 @@ class Answer(BaseModel):
 @app.post("/answers")
 async def handle_answers(answer: Answer):
     received_answers = answer.answers
-    response_data = {"answers": received_answers}
-    return response_data
+    response_data = post_quiz_answers(received_answers)
+    return {"data": response_data}
 
 
 @app.get("/", tags=["root"])

@@ -13,6 +13,9 @@ const Quiz = () => {
   const [allAnswers, setAllAnswers] = useState([]);
 
   const handleClick = (answer) => {
+    if (endQuiz) {
+      return; // Do not proceed if the quiz has ended
+    }
     if (currentQuestion === 36) {
       setEndQuiz(true);
     }
