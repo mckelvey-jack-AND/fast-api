@@ -24,6 +24,11 @@ jest.mock(
   () => () => MockComponent("BestWorseResults")
 );
 
+jest.mock(
+  "../../../../components/graphs/GroupedBarChart",
+  () => () => MockComponent("GroupedBarChart")
+);
+
 describe("Squad component", () => {
   it("should render dashboard content", () => {
     render(<Squad />);

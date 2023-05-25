@@ -29,10 +29,10 @@ const Individual = () => {
         {userData && (
           <>
             <Leaderboard userData={userData} type="individual" />
-            <GroupedBarChart />
             <QuestionDifficulty />
             <OvertimeChart type="individual" />
             <BestWorseResults type="individual" />
+            <GroupedBarChart />
           </>
         )}
       </div>

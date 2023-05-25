@@ -36,16 +36,7 @@ const OvertimeChart = ({ type }) => {
         <ResponsiveContainer width={"100%"} height="100%">
           <LineChart data={graphData}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="rounds"
-              fontSize={12}
-              label={{
-                value: "Quiz round",
-                offset: 0,
-                fontSize: 12,
-                position: "insideBottomLeft",
-              }}
-            />
+            <XAxis dataKey="rounds" fontSize={12} />
             <YAxis
               type="number"
               domain={[1, "dataMax"]}
