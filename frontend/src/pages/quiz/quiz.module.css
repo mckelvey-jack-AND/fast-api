@@ -38,9 +38,12 @@
   margin-top: 20px;
   width: 200px;
 }
-.button_answer:hover {
-  background-color: rgb(206, 206, 206);
+
+html.button_answer .button_answer:hover,
+.button_answer:active {
+  background-color: rgb(162, 162, 162);
 }
+
 .progressBar {
   font-family: "Open Sans";
   font-style: normal;
@@ -59,4 +62,14 @@
 .links {
   margin-top: 100px;
   display: inline-block;
+}
+.submit {
+  position: absolute;
+  left: 80.51%;
+  top: 130%;
+  padding: 10px;
+  font-size: 16px;
+}
+.submit:hover {
+  background-color: rgb(162, 162, 162);
 }

@@ -6,28 +6,59 @@ import QuizResult from "./QuizResult";
 const Quiz = () => {
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
+  const [showResult, setShowResult] = useState(false);
   const [endQuiz, setEndQuiz] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState(null);
   const [totalCorrectAnswer, setTotalCorrectAnswer] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [allAnswers, setAllAnswers] = useState([]);
-  const[roundId, setRoundId]=useState([]);
-  const [answerId, setAnswerId] =useState([]);
-  const [questionId, setQuestionId] =useState([]);
+  const [roundId, setRoundId] = useState([]);
+  const [answerId, setAnswerId] = useState([]);
+  const [questionId, setQuestionId] = useState([]);
+
+  const sendDataToServer = async () => {
+    const reversedAllAnswers = [...allAnswers].reverse();
+    const reversedQuestionId = [...questionId].reverse();
+    const reversedAnswerId = [...answerId].reverse();
+
+    try {
+      await fetch("http://127.0.0.1:8000/answers", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          answers: reversedAllAnswers,
+          roundId: roundId,
+          questionId: reversedQuestionId,
+          answerId: reversedAnswerId,
+        }),
+      });
+      setShowResult(true);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   const handleClick = (answer) => {
-    if (endQuiz) {
-      return; // Do not proceed if the quiz has ended
-    }
+    console.log(currentQuestion);
     if (currentQuestion === 36) {
+      if (answer.text === correctAnswer) {
+        setTotalCorrectAnswer(totalCorrectAnswer + 1);
+      }
+      setAllAnswers([...allAnswers, answer.text]);
+      setAnswerId([...answerId, answer.id]);
       setEndQuiz(true);
+      console.log(endQuiz);
+      return;
     }
     if (answer.text === correctAnswer) {
       setTotalCorrectAnswer(totalCorrectAnswer + 1);
     }
     setAllAnswers([...allAnswers, answer.text]);
-    setAnswerId([...answerId, answer.id])
+    setAnswerId([...answerId, answer.id]);
     setCurrentQuestion(currentQuestion + 4);
+    console.log(currentQuestion);
   };
 
   const questionDB = async () => {
@@ -41,22 +72,22 @@ const Quiz = () => {
       setAnswers([
         {
           text: result.data[currentQuestion].answer_text,
-          id: result.data[currentQuestion].answer_id
+          id: result.data[currentQuestion].answer_id,
         },
         {
           text: result.data[currentQuestion + 1].answer_text,
-          id: result.data[currentQuestion + 1].answer_id
+          id: result.data[currentQuestion + 1].answer_id,
         },
         {
           text: result.data[currentQuestion + 2].answer_text,
-          id: result.data[currentQuestion + 2].answer_id
+          id: result.data[currentQuestion + 2].answer_id,
         },
         {
           text: result.data[currentQuestion + 3].answer_text,
-          id: result.data[currentQuestion + 3].answer_id
-        }
+          id: result.data[currentQuestion + 3].answer_id,
+        },
       ]);
-      
+
       if (result.data[currentQuestion].isCorrect === 1) {
         setCorrectAnswer(result.data[currentQuestion].answer_text);
       } else if (result.data[currentQuestion + 1].isCorrect === 1) {
@@ -77,8 +108,8 @@ const Quiz = () => {
 
   return (
     <div>
-      {endQuiz ? (
-        <QuizResult totalCorrectAnswer={totalCorrectAnswer} allAnswers={allAnswers} answerId={answerId} roundId={roundId}  questionId={questionId}/>
+      {showResult ? (
+        <QuizResult totalCorrectAnswer={totalCorrectAnswer} />
       ) : (
         <>
           <div className={styles.progressBar}>
@@ -100,6 +131,16 @@ const Quiz = () => {
                 </button>
               );
             })}
+            {endQuiz && (
+              <button
+                className={styles.submit}
+                onClick={() => {
+                  sendDataToServer();
+                }}
+              >
+                Finish
+              </button>
+            )}
           </div>
         </>
       )}
