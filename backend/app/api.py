@@ -83,13 +83,13 @@ async def read_best_results_and_worst_results(type: str) -> dict:
     best_results = (
         get_squad_results(True) if type == "squad" else get_individual_results(True)
     )
-    worse_result = (
+    worst_result = (
         get_squad_results(False) if type == "squad" else get_individual_results(False)
     )
 
     return {
         "data": {
-            "best_results": best_results[0],
-            "worse_result": worse_result[0],
+            "best_result": best_results[0],
+            "worst_result": worst_result[0],
         }
     }

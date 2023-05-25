@@ -49,6 +49,7 @@ const OvertimeChart = ({ type }) => {
             <YAxis
               type="number"
               domain={[1, "dataMax"]}
+              allowDecimals={false}
               reversed={true}
               tickCount={5}
               interval={"preserveStart"}
