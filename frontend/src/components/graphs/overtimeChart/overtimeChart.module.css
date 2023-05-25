@@ -20,6 +20,10 @@
   text-transform: capitalize;
 }
 
+.custom_tooltip_container {
+  font-size: 12px;
+  text-align: left;
+}
 .custom_tooltip_container p {
   color: #333;
 }
