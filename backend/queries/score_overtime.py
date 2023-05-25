@@ -1,7 +1,7 @@
 from database import connectDB
 
 
-def  get_individual_score_overtime(user_id):
+def get_individual_score_overtime(user_id):
     connection = connectDB()
     query = f"""
     SELECT user_id, first_name, last_name, rounds, total_score, position from (SELECT 

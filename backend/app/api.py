@@ -8,6 +8,7 @@ from queries.score_overtime import (
     get_individual_score_overtime,
     get_squad_score_overtime,
 )
+from queries.best_and_worse_results import get_squad_results, get_individual_results
 
 app = FastAPI()
 
@@ -61,7 +62,6 @@ async def read_question_difficulty() -> dict:
 
 @app.get("/leaderboard-score-overtime")
 async def read_leaderboard_score_overtime(type: str) -> dict:
-    print(type)
     if type != "squad" and type != "individual":
         raise HTTPException(status_code=404, detail="Type must be individual or squad")
 
@@ -72,4 +72,24 @@ async def read_leaderboard_score_overtime(type: str) -> dict:
     )
     return {
         "data": leaderboard_score_overtime,
+    }
+
+
+@app.get("/best-results-and-worst-results")
+async def read_best_results_and_worst_results(type: str) -> dict:
+    if type != "squad" and type != "individual":
+        raise HTTPException(status_code=404, detail="Type must be individual or squad")
+
+    best_results = (
+        get_squad_results(True) if type == "squad" else get_individual_results(True)
+    )
+    worse_result = (
+        get_squad_results(False) if type == "squad" else get_individual_results(False)
+    )
+
+    return {
+        "data": {
+            "best_results": best_results[0],
+            "worse_result": worse_result[0],
+        }
     }
