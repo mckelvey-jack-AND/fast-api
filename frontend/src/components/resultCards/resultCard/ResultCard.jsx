@@ -1,5 +1,5 @@
 import React from "react";
-import { UpArrowIcon } from "./ArrowIcons";
+import { DownArrowIcon, UpArrowIcon } from "./ArrowIcons";
 import styles from "./resultCard.module.css";
 const ResultCard = ({
   type,
@@ -16,9 +16,9 @@ const ResultCard = ({
       <p className={styles.result_card_date}>{date}</p>
       <p className={styles.result_card_place}> {degree} </p>
       <div className={styles.result_card_description}>
-        <UpArrowIcon />
+        {isBestResult ? <UpArrowIcon /> : <DownArrowIcon />}
         <p className={styles.card_description_text}>
-          Only achieved this result on {occasion} occasions Copy
+          Only achieved this result on {occasion} occasions.
         </p>
       </div>
     </article>

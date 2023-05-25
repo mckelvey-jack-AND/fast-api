@@ -38,10 +38,12 @@ const OvertimeChart = ({ type }) => {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="rounds"
+              fontSize={12}
               label={{
                 value: "Quiz round",
+                offset: 0,
+                fontSize: 12,
                 position: "insideBottomLeft",
-                offset: -20,
               }}
             />
             <YAxis
@@ -53,7 +55,7 @@ const OvertimeChart = ({ type }) => {
               label={{
                 value: "Leaderboard Position",
                 angle: -90,
-                fontSize: 16,
+                fontSize: 12,
                 position: "insideLeft",
               }}
             />
