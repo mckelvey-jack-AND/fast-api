@@ -4,6 +4,7 @@
   align-items: center;
   padding: 1rem;
   box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 0px;
+  margin: 1rem 0;
 }
 
 .easy_container {
@@ -17,7 +18,7 @@
 
 .card_title {
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .correct_count {

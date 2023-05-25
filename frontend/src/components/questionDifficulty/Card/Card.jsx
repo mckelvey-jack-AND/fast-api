@@ -8,7 +8,7 @@ const Card = ({ title, question, type }) => {
       } ${styles.card}`}
       data-testid={type}
     >
-      <h2 className={styles.card_title}>{title}</h2>
+      <h3 className={styles.card_title}>{title}</h3>
       <div className={styles.correct_count}>2/10</div>
       <div>
         <p className={styles.question_text}>{question?.question_text}</p>
