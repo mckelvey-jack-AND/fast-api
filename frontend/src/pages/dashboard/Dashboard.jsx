@@ -8,7 +8,7 @@ const Dashboard = () => {
 
   return (
     <div className={styles.tabs}>
-      <h2>Dashboard</h2>
+      <h2 className={styles.dashboard_header}>Dashboard</h2>
       <ul className={styles.nav}>
         <li
           className={active === "individual" ? styles.active : undefined}

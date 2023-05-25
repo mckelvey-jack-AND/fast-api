@@ -2,7 +2,7 @@
   margin: 1rem auto 1.5rem;
   padding: 2rem 1rem;
 }
-.tabs h2 {
+.tabs .dashboard_header {
   font-weight: 700;
   font-size: 24px;
   line-height: 33px;
