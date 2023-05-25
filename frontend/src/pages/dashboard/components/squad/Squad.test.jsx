@@ -30,10 +30,10 @@ jest.mock(
 );
 
 describe("Squad component", () => {
-  it("should render dashboard content", () => {
+  it("should render squad component", () => {
     render(<Squad />);
 
-    const squadDashboardContent = screen.getByText("Dashboard");
+    const squadDashboardContent = screen.getByText("OvertimeChart Component");
 
     expect(squadDashboardContent).toBeVisible();
   });
