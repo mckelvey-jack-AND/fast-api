@@ -1,26 +1,30 @@
 .tabs {
-  margin: 3.5rem auto 1.5rem;
+  margin: 1rem auto 1.5rem;
   padding: 2rem 1rem;
 }
-
+.tabs h2 {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 33px;
+  margin-bottom: 0.5rem;
+}
 ul.nav {
-  width: 60%;
-  margin: 0 auto 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid black;
-
-  padding-left: 0px;
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+  gap: 10px;
+  margin: 1rem 0;
+  max-width: 500px;
 }
 
 ul.nav li {
-  width: 50%;
+  background-color: #f5f5f6;
+  color: #707071;
   padding: 1rem;
   list-style: none;
   text-align: center;
   cursor: pointer;
-  transition: all 0.7s;
+  transition: all 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 0px;
 }
 
 ul.nav li:nth-child(2) {
@@ -28,11 +32,18 @@ ul.nav li:nth-child(2) {
 }
 
 ul.nav li:hover {
-  background: #f5f5f6;
+  color: #333;
 }
 
+ul.nav li span {
+  padding: 0.5rem;
+}
 ul.nav li.active {
-  background: #f5f5f6;
+  font-weight: 700;
+  color: #000;
+}
+ul.nav li.active span {
+  border-bottom: 1px solid #707071;
 }
 
 .selected {

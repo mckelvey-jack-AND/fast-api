@@ -24,7 +24,6 @@ const Individual = () => {
   return (
     <div>
       {loading && <div>LOADING!</div>}
-      <h2>Dashboard</h2>
       <div className={styles.leaderboard}>
         {userData && (
           <>
