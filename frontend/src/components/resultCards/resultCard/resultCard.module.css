@@ -5,6 +5,7 @@
   align-items: center;
   padding: 1rem;
   box-shadow: rgba(0, 0, 0, 0.21) 0px 2px 0px;
+  margin: 1rem 0;
 }
 .result_card_header {
   font-size: 12px;
