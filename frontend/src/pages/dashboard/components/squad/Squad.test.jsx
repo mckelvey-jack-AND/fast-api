@@ -7,12 +7,23 @@ jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: () => mockedUsedNavigate,
 }));
-class ResizeObserver {
-  observe = () => {};
-  unobserve = () => {};
-  disconnect = () => {};
+
+function MockComponent(text = "Dashboard") {
+  return <div>{text} Component</div>;
 }
-window.ResizeObserver = ResizeObserver;
+jest.mock(
+  "../leaderboard/Leaderboard",
+  () => () => MockComponent("Leaderboard")
+);
+jest.mock(
+  "../../../../components/graphs/overtimeChart/OvertimeChart",
+  () => () => MockComponent("OvertimeChart")
+);
+jest.mock(
+  "../../../../components/resultCards/BestWorseResults",
+  () => () => MockComponent("BestWorseResults")
+);
+
 describe("Squad component", () => {
   it("should render dashboard content", () => {
     render(<Squad />);

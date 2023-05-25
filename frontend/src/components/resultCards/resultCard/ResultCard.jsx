@@ -24,7 +24,7 @@ const ResultCard = ({
         {isBestResult ? <UpArrowIcon /> : <DownArrowIcon />}
         <p className={styles.card_description_text}>
           Only achieved this result {occurrences}
-          {occurrences > 1 ? <span>occasions</span> : <span>occasion</span>}.
+          {occurrences > 1 ? <span> occasions</span> : <span> occasion</span>}.
         </p>
       </div>
     </article>

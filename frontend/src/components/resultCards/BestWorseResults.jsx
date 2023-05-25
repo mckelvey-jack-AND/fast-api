@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useEffect } from "react";
 import ResultCard from "./resultCard/ResultCard";
 import styles from "./bestWorseResults.module.css";
@@ -16,7 +15,6 @@ const BestWorseResults = ({ type }) => {
     }
   }, [error]);
 
-  console.log({ resultData });
   return (
     <section className={styles.result_cards_container}>
       {loading && <div>LOADING!</div>}
