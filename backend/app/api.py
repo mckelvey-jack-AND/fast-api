@@ -4,6 +4,10 @@ from queries.correct_answers import get_correct_answers
 from helpers.correct_answer_fotmat import group_by_rounds
 from queries.question_difficulty import get_easiest_question, get_hardest_question
 from queries.leaderboard import get_leaderboard_data
+from queries.quizQuestions import get_quiz_data
+from queries.quizAnswers import post_quiz_answers
+from pydantic import BaseModel
+from typing import List
 from queries.score_overtime import (
     get_individual_score_overtime,
     get_squad_score_overtime,
@@ -11,6 +15,7 @@ from queries.score_overtime import (
 from queries.best_and_worse_results import get_squad_results, get_individual_results
 
 app = FastAPI()
+
 
 origins = ["http://localhost:3000", "localhost:3000"]
 
@@ -22,6 +27,23 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+class Answer(BaseModel):
+    answers: List[str]
+    roundId: List[str]
+    questionId: List[str]
+    answerId: List[str]
+
+
+@app.post("/answers")
+async def handle_answers(answer: Answer):
+    received_answers = answer.answers
+    roundId = answer.roundId
+    questionId = answer.questionId
+    answerId = answer.answerId
+    response_data = post_quiz_answers(received_answers, roundId, questionId, answerId)
+    return {"data": response_data}
 
 
 @app.get("/", tags=["root"])
@@ -39,11 +61,17 @@ def read_correct_answers():
 
 
 @app.get("/leaderboard")
-def get_data(type: str):
+def get_leaderboard(type: str):
     if type != "squad" and type != "individual":
         raise HTTPException(status_code=404, detail="Type must be individual or squad")
 
     data = get_leaderboard_data(type)
+    return {"data": data}
+
+
+@app.get("/quiz")
+def get_quiz():
+    data = get_quiz_data()
     return {"data": data}
 
 
