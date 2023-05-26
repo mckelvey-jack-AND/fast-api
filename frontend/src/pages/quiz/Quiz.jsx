@@ -22,7 +22,7 @@ const Quiz = () => {
     const reversedAnswerId = [...answerId].reverse();
 
     try {
-      await fetch("http://127.0.0.1:8000/answers", {
+      await fetch("/answers", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,12 +36,11 @@ const Quiz = () => {
       });
       setShowResult(true);
     } catch (error) {
-      console.error("Error:", error);
+      console.log("Error:", error); // eslint-disable-line
     }
   };
 
   const handleClick = (answer) => {
-    console.log(currentQuestion);
     if (currentQuestion === 36) {
       if (answer.text === correctAnswer) {
         setTotalCorrectAnswer(totalCorrectAnswer + 1);
@@ -49,7 +48,6 @@ const Quiz = () => {
       setAllAnswers([...allAnswers, answer.text]);
       setAnswerId([...answerId, answer.id]);
       setEndQuiz(true);
-      console.log(endQuiz);
       return;
     }
     if (answer.text === correctAnswer) {
@@ -58,7 +56,6 @@ const Quiz = () => {
     setAllAnswers([...allAnswers, answer.text]);
     setAnswerId([...answerId, answer.id]);
     setCurrentQuestion(currentQuestion + 4);
-    console.log(currentQuestion);
   };
 
   const questionDB = async () => {
@@ -98,7 +95,7 @@ const Quiz = () => {
         setCorrectAnswer(result.data[currentQuestion + 3].answer_text);
       }
     } catch (e) {
-      console.log(e);
+      console.log(e); // eslint-disable-line
     }
   };
 
