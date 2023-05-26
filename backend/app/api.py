@@ -13,6 +13,8 @@ from queries.score_overtime import (
     get_squad_score_overtime,
 )
 from queries.best_and_worse_results import get_squad_results, get_individual_results
+from queries.get_user import get_user
+
 
 app = FastAPI()
 
@@ -49,6 +51,18 @@ async def handle_answers(answer: Answer):
 @app.get("/", tags=["root"])
 async def read_root() -> dict:
     return {"message": "Hello world."}
+
+
+@app.post("/user")
+async def read_current_user(user_email: dict) -> dict:
+    user = get_user(user_email["user_email"])
+    print(type(user))
+    if not user:
+        print("no user")
+
+        raise HTTPException(status_code=404, detail="No user found with that email")
+
+    return {"data": user[0]}
 
 
 @app.get("/correct-answers")
