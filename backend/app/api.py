@@ -4,6 +4,7 @@ from queries.correct_answers import get_correct_answers
 from helpers.correct_answer_fotmat import group_by_rounds
 from queries.leaderboard import get_leaderboard_data
 from queries.quizQuestions import get_quiz_data
+from queries.individualPosition import get_individual_position
 from queries.quizAnswers import post_quiz_answers
 from pydantic import BaseModel
 from typing import List
@@ -65,3 +66,12 @@ def get_data(type: str):
 def get_data(): 
     data = get_quiz_data()
     return {"data": data}
+
+@app.get("/individual-position")
+def read_leaderboard_score_overtime(): 
+    individual_position = (
+        get_individual_position(1)
+    )
+    return {
+        "data": individual_position,
+    }
