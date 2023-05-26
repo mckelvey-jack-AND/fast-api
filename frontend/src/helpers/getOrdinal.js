@@ -1,13 +1,13 @@
-export const getOrdinal = (n) => {
-  let ord = "th";
+export const getOrdinal = (number) => {
+  let ordinal = "th";
 
-  if (n % 10 == 1 && n % 100 != 11) {
-    ord = "st";
-  } else if (n % 10 == 2 && n % 100 != 12) {
-    ord = "nd";
-  } else if (n % 10 == 3 && n % 100 != 13) {
-    ord = "rd";
+  if (number % 10 === 1 && number % 100 != 11) {
+    ordinal = "st";
+  } else if (number % 10 === 2 && number % 100 != 12) {
+    ordinal = "nd";
+  } else if (number % 10 === 3 && number % 100 != 13) {
+    ordinal = "rd";
   }
 
-  return ord;
+  return ordinal;
 };
