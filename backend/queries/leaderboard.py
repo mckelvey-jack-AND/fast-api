@@ -1,26 +1,7 @@
-import pymysql
-from dotenv import load_dotenv
-import os
-
-load_dotenv('../.env')
-
-# Establish a connection to the Google Cloud MySQL database
-db_host = os.environ.get('DB_HOST')
-db_user = os.environ.get('DB_USER')
-db_password = os.environ.get('DB_PASSWORD')
-db_name = os.environ.get('DB_NAME')
-
+from database import connectDB
 
 def get_leaderboard_data(type):
-    connection = pymysql.connect(
-    host=db_host,
-    user=db_user,
-    password=db_password,
-    database=db_name,
-    cursorclass=pymysql.cursors.DictCursor
-    )
-
-    cursor = connection.cursor()
+    connection = connectDB()        
 
     # Leaderboard SQL query
     user_query = f'''
@@ -44,7 +25,7 @@ def get_leaderboard_data(type):
     '''
 
     query = squad_query if type == 'squad' else user_query
-
+    cursor = connection.cursor()
     cursor.execute(query)
     data = cursor.fetchall()
     cursor.close()

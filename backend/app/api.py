@@ -3,8 +3,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from queries.correct_answers import get_correct_answers
 from helpers.correct_answer_fotmat import group_by_rounds
 from queries.leaderboard import get_leaderboard_data
+from queries.quizQuestions import get_quiz_data
+from queries.quizAnswers import post_quiz_answers
+from pydantic import BaseModel
+from typing import List
 
 app = FastAPI()
+
 
 origins = ["http://localhost:3000", "localhost:3000"]
 
@@ -16,6 +21,22 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+class Answer(BaseModel):
+    answers: List[str]
+    roundId: List[str]
+    questionId: List[str]
+    answerId: List[str]
+
+@app.post("/answers")
+async def handle_answers(answer: Answer):
+    received_answers = answer.answers
+    roundId = answer.roundId
+    questionId = answer.questionId
+    answerId = answer.answerId
+    response_data = post_quiz_answers(received_answers, roundId, questionId, answerId)
+    return {"data": response_data}
 
 
 @app.get("/", tags=["root"])
@@ -38,4 +59,9 @@ def get_data(type: str):
         raise HTTPException(status_code=404, detail="Type must be individual or squad")
 
     data = get_leaderboard_data(type)
+    return {"data": data}
+
+@app.get("/quiz")
+def get_data(): 
+    data = get_quiz_data()
     return {"data": data}
