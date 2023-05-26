@@ -1,17 +1,17 @@
-/* eslint-disable no-console */
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./home.module.css";
 import NextButtonIcon from "./NextButtonIcon";
 import usePost from "../../hooks/usePost";
 import { UserContext } from "../../hooks/UserContext";
+import WarningIcon from "./WarningIcon";
 
 const Home = () => {
-  const { currentUser, setCurrentUser } = React.useContext(UserContext);
-
-  console.log({ currentUser });
-  const [emailInput, setEmailInput] = useState("");
+  const { setCurrentUser } = React.useContext(UserContext);
+  const [emailInput, setEmailInput] = useState("musa@and.digital");
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -19,20 +19,20 @@ const Home = () => {
     const { data, errorBody } = await usePost("/user", {
       user_email: emailInput,
     });
+
     if (errorBody) {
       setError(errorBody.data);
       return;
     } else {
       setCurrentUser(data);
+      data.has_taken_most_recent_quiz
+        ? navigate("/dashboard")
+        : navigate("/quiz");
     }
-    console.log({ data, errorBody });
   }
-
-  useEffect;
 
   return (
     <div className={styles.main}>
-      {/* {loading && <div>LOADING!</div>} */}
       <h1 className={styles.welcomeText}>Welcome to the Jemison Quiz</h1>
       <p className={styles.paragraph}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -51,17 +51,20 @@ const Home = () => {
           onChange={(e) => setEmailInput(e.target.value)}
           title="Please enter an email address that ends with @and.digital"
         />
-        {error && <div className={styles.error}>{error}</div>}
+        {error && (
+          <div className={styles.email_error}>
+            <WarningIcon />
+            <span>{error}</span>
+          </div>
+        )}
       </form>
       <div className={styles.links}>
         <div className={styles.dashboard}>
           <Link to="/dashboard"> See dashboard</Link>
         </div>
-        <div className={styles.quiz}>
-          <Link to="/quiz">
-            <NextButtonIcon />
-          </Link>
-        </div>
+        <button onClick={handleSubmit} className={styles.quiz}>
+          <NextButtonIcon />
+        </button>
       </div>
     </div>
   );
