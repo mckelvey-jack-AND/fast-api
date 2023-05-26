@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 from queries.correct_answers import get_correct_answers
 from helpers.correct_answer_fotmat import group_by_rounds
@@ -54,13 +54,12 @@ async def read_root() -> dict:
 
 
 @app.post("/user")
-async def read_current_user(user_email: dict) -> dict:
+async def read_current_user(user_email: dict, response: Response) -> dict:
     user = get_user(user_email["user_email"])
     print(type(user))
     if not user:
-        print("no user")
-
-        raise HTTPException(status_code=404, detail="No user found with that email")
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {"data": "User not found"}
 
     return {"data": user[0]}
 
