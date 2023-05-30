@@ -19,10 +19,12 @@ FROM
     user_answers ua ON ua.user_id = users.id
         LEFT JOIN
     rounds r ON r.id = ua.rounds_id
-        AND r.rounds = 'quiz_1'
+        AND r.rounds = (select rounds from rounds order by date desc limit 1)
 WHERE
     users.email = %s
 GROUP BY users.id , r.id
+order by has_taken_most_recent_quiz desc
+limit 1
 
 """
     cursor = connection.cursor()

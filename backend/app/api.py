@@ -61,9 +61,10 @@ async def read_current_user(user_email: dict, response: Response) -> dict:
         response.status_code = status.HTTP_404_NOT_FOUND
         return {"data": "User not found"}
 
-    curr = {**user[0], **{"has_taken_most_recent_quiz": 0}}
-    print(curr)
-    return {"data": curr}
+    # curr = {**user[0], **{"has_taken_most_recent_quiz": 1}}
+    # print(curr)
+    # return {"data": curr}
+    return {"data": user[0]}
 
 
 @app.get("/correct-answers")
@@ -104,14 +105,16 @@ async def read_question_difficulty() -> dict:
 
 
 @app.get("/leaderboard-score-overtime")
-async def read_leaderboard_score_overtime(type: str) -> dict:
+async def read_leaderboard_score_overtime(
+    type: str, user_id: str, squad_name: str
+) -> dict:
     if type != "squad" and type != "individual":
         raise HTTPException(status_code=404, detail="Type must be individual or squad")
 
     leaderboard_score_overtime = (
-        get_individual_score_overtime(1)
+        get_individual_score_overtime(user_id)
         if type == "individual"
-        else get_squad_score_overtime("squad_1")
+        else get_squad_score_overtime(squad_name)
     )
     return {
         "data": leaderboard_score_overtime,
