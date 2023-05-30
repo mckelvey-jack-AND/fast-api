@@ -1,32 +1,42 @@
-.orderList {
-  counter-reset: item;
+.leaderboard {
+  border: 6px solid #f5f5f6;
+  padding: 2rem;
+  max-height: 500px;
+  overflow-y: scroll;
+  margin: 1rem 0;
+  box-shadow: rgba(0, 0, 0, 0.21) 0px 2px 0px;
 }
-.list {
-  display: block;
-  width: 250px;
-  margin: auto;
-  background: #f5f5f6;
-}
-.list::before {
-  display: inline-block;
-  content: counter(item) "";
-  counter-increment: item;
-  width: 2em;
-  margin-left: -15em;
+.leaderboard_header {
+  text-align: center;
+  font-size: 12px;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
 }
 
-.list:nth-child(2n) {
-  background: white;
+.leaderboard .list_header {
+  border-bottom: 1px solid #d2d2d2;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 14px;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  justify-items: center;
+  padding: 0.5rem 0;
 }
 
-.name {
-  width: 150px;
-  float: left;
-  margin-left: 40px;
+.leaderboard .list_item {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  justify-items: center;
+  padding: 0.5rem 0;
+  font-size: 10px;
+  line-height: 14px;
+  font-weight: 400;
+  border-bottom: 1px solid #d2d2d2;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 }
 
-.score {
-  width: 20px;
-  float: left;
-  margin-left: 30px;
+.leaderboard .list_item:hover {
+  background-color: #f5f5f6;
 }

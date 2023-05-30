@@ -1,8 +1,9 @@
 from database import connectDB
 
+
 def get_correct_answers():
     connection = connectDB()
-    query = f'''
+    query = f"""
     SELECT
     r.rounds
     ,q.difficulty
@@ -20,7 +21,7 @@ def get_correct_answers():
     group by
     r.rounds
     ,q.difficulty
-    '''
+    """
     cursor = connection.cursor()
     cursor.execute(query)
     data = cursor.fetchall()

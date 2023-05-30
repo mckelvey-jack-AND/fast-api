@@ -8,8 +8,18 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockedUsedNavigate,
 }));
 
+function MockComponent(text = "Individual") {
+  return <div>{text} Component</div>;
+}
+
+jest.mock(
+  "./components/individual/Individual",
+  () => () => MockComponent("Individual")
+);
+jest.mock("./components/squad/Squad", () => () => MockComponent("Squad"));
+
 describe("Dashboard component", () => {
-  it("should render Individual dashboard content as a default", () => {
+  it("should render Dashboard content as a default", () => {
     render(<Dashboard />);
 
     const individualDashboardContent = screen.getByText("Dashboard");
@@ -25,9 +35,6 @@ describe("Dashboard component", () => {
     // Click on individual tab
     fireEvent.click(individualTab);
 
-    expect(screen.queryByText("Dashboard")).toBeVisible();
-  });
-  it("Mock test", () => {
-    expect(true).toBe(true);
+    expect(screen.queryByText("Squad")).toBeVisible();
   });
 });

@@ -4,6 +4,10 @@ import Leaderboard from "../leaderboard/Leaderboard";
 import useFetch from "../../../../hooks/useFetch";
 import styles from "./individual.module.css";
 import GroupedBarChart from "../../../../components/graphs/GroupedBarChart";
+import QuestionDifficulty from "../../../../components/questionDifficulty/QuestionDifficulty";
+import OvertimeChart from "../../../../components/graphs/overtimeChart/OvertimeChart";
+import BestWorseResults from "../../../../components/resultCards/BestWorseResults";
+
 const Individual = () => {
   const {
     data: userData,
@@ -20,11 +24,13 @@ const Individual = () => {
   return (
     <div>
       {loading && <div>LOADING!</div>}
-      <h2>Dashboard</h2>
       <div className={styles.leaderboard}>
         {userData && (
           <>
             <Leaderboard userData={userData} type="individual" />
+            <QuestionDifficulty />
+            <OvertimeChart type="individual" />
+            <BestWorseResults type="individual" />
             <GroupedBarChart />
           </>
         )}
