@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import React, {useEffect} from "react";
 import styles from "./quizResult.module.css";
-import PositionCard from "../../components/resultCards/resultCard/positionCard";
+import PositionCard from "../../components/resultCards/resultCard/PositionCard";
 import useFetch from "../../hooks/useFetch";
 
 const QuizResult = (props) => {
