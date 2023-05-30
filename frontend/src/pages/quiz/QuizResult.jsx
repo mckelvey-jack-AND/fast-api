@@ -3,6 +3,7 @@ import React, {useEffect} from "react";
 import styles from "./quizResult.module.css";
 import PositionCard from "../../components/resultCards/resultCard/PositionCard";
 import useFetch from "../../hooks/useFetch";
+import ReviewAnswers from "./ReviewAnswers";
 
 const QuizResult = (props) => {
 
@@ -21,6 +22,7 @@ const QuizResult = (props) => {
     <div>  {loading && <div>LOADING!</div>}
     {resultData && (
     <>
+
       <div className={styles.results}> Results</div>
       <div className={styles.links}>
         <div className={styles.question}>
@@ -30,6 +32,10 @@ const QuizResult = (props) => {
             {props.totalCorrectAnswer * 10}%
           </div>
         </div>
+
+        <ReviewAnswers   
+        questions={['Question 1', 'Question 2', 'Question 3']} 
+        answers={['Answer 1', 'Answer 2', 'Answer 3']}/>
         <div className={styles.result_cards_container}>
         <>
           <PositionCard
