@@ -34,8 +34,9 @@ const QuizResult = (props) => {
         </div>
 
         <ReviewAnswers   
-        questions={['Question 1', 'Question 2', 'Question 3']} 
-        answers={['Answer 1', 'Answer 2', 'Answer 3']}/>
+        questions={props.questions} 
+        answers={props.answers}
+        correctAnswers={props.correctAnswers}/>
         <div className={styles.result_cards_container}>
         <>
           <PositionCard
