@@ -41,7 +41,7 @@ const Home = () => {
           type="email"
           placeholder="Please enter your email"
           value={emailInput}
-          pattern="^[a-zA-Z0-9._%+-]+@and\.digital$"
+          pattern="^[a-zA-Z0-9._%+-^&amp;]+@and\.digital$"
           required
           onChange={(e) => setEmailInput(e.target.value)}
           title="Please enter an email address that ends with @and.digital"
