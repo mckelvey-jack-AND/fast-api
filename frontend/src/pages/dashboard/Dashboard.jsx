@@ -8,22 +8,23 @@ const Dashboard = () => {
 
   return (
     <div className={styles.tabs}>
+      <h2 className={styles.dashboard_header}>Dashboard</h2>
       <ul className={styles.nav}>
         <li
-          className={active === "individual" ? styles.selected : undefined}
+          className={active === "individual" ? styles.active : undefined}
           onClick={() => {
             setActive("individual");
           }}
         >
-          Individual
+          <span>Individual</span>
         </li>
         <li
-          className={active === "squad" ? styles.selected : undefined}
+          className={active === "squad" ? styles.active : undefined}
           onClick={() => {
             setActive("squad");
           }}
         >
-          Squad
+          <span>Squad</span>
         </li>
       </ul>
       <div className={styles.outlet}>

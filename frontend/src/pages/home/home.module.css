@@ -8,18 +8,29 @@
   margin-bottom: 100px;
 }
 
+.email_input {
+  background-color: #f5f5f6;
+  border: none;
+  color: #000;
+  font-size: 16px;
+  padding: 1.5rem 1rem;
+  width: 100%;
+  max-width: 500px;
+}
+.email_input:focus {
+  outline: none;
+}
 .paragraph {
   margin-bottom: 50px;
 }
 .links {
-  margin-top: 100px;
-  display: inline-block;
-}
-.dashboard {
-  float: left;
+  font-size: 12px;
+  margin: 2rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .quiz {
-  float: right;
-  margin: auto;
-  padding-left: 200px;
+  background-color: #f5f5f6;
+  padding: 1rem;
 }
