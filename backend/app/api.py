@@ -61,7 +61,9 @@ async def read_current_user(user_email: dict, response: Response) -> dict:
         response.status_code = status.HTTP_404_NOT_FOUND
         return {"data": "User not found"}
 
-    return {"data": user[0]}
+    curr = {**user[0], **{"has_taken_most_recent_quiz": 0}}
+    print(curr)
+    return {"data": curr}
 
 
 @app.get("/correct-answers")
