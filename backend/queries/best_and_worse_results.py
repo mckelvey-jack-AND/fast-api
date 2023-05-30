@@ -1,7 +1,7 @@
 from database import connectDB
 
 
-def get_squad_results(isBest=True):
+def get_squad_results(squadName, isBest=True):
     connection = connectDB()
     query = f"""
     SELECT squad, position, count(position) as occurrences from (SELECT 
@@ -22,7 +22,7 @@ def get_squad_results(isBest=True):
      answers.is_correct = 1
     GROUP BY squad, rounds
     ORDER BY rounds, total_score DESC) as sub
-    where squad = 'squad_1' and position in (select {"min" if isBest else "max"}(position) from (SELECT 
+    where squad = '{squadName}' and position in (select {"min" if isBest else "max"}(position) from (SELECT 
     rounds.rounds,
     users.squad,
     RANK() OVER(PARTITION BY rounds ORDER BY SUM(answers.is_correct) DESC) 'position'
@@ -38,7 +38,7 @@ def get_squad_results(isBest=True):
      answers.is_correct = 1
     GROUP BY squad, rounds
     ORDER BY rounds) main
-	where squad = 'squad_1'
+	where squad = '{squadName}'
 	GROUP BY squad)
     """
     cursor = connection.cursor()
@@ -49,7 +49,7 @@ def get_squad_results(isBest=True):
     return data
 
 
-def get_individual_results(isBest=True):
+def get_individual_results(user_id, isBest=True):
     connection = connectDB()
     query = f"""
     SELECT user_id, position, count(position) as occurrences from (SELECT 
@@ -87,7 +87,7 @@ where user_id = 1 and position in (select {"min" if isBest else "max"}(position)
      answers.is_correct = 1
     GROUP BY user_id, rounds
     ORDER BY rounds) main
-	where user_id = 1
+	where user_id = {user_id}
 	GROUP BY user_id)
     """
     cursor = connection.cursor()

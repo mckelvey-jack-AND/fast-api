@@ -122,15 +122,21 @@ async def read_leaderboard_score_overtime(
 
 
 @app.get("/best-results-and-worst-results")
-async def read_best_results_and_worst_results(type: str) -> dict:
+async def read_best_results_and_worst_results(
+    type: str, squadName: str, user_id: str
+) -> dict:
     if type != "squad" and type != "individual":
         raise HTTPException(status_code=404, detail="Type must be individual or squad")
 
     best_results = (
-        get_squad_results(True) if type == "squad" else get_individual_results(True)
+        get_squad_results(squadName, True)
+        if type == "squad"
+        else get_individual_results(user_id, True)
     )
     worst_result = (
-        get_squad_results(False) if type == "squad" else get_individual_results(False)
+        get_squad_results(squadName, False)
+        if type == "squad"
+        else get_individual_results(user_id, False)
     )
 
     return {
