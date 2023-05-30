@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./home.module.css";
 import NextButtonIcon from "./NextButtonIcon";
 import usePost from "../../hooks/usePost";
@@ -10,8 +10,6 @@ const Home = () => {
   const { setCurrentUser } = React.useContext(UserContext);
   const [emailInput, setEmailInput] = useState("musa@and.digital");
   const [error, setError] = useState("");
-
-  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -25,9 +23,6 @@ const Home = () => {
       return;
     } else {
       setCurrentUser(data);
-      data.has_taken_most_recent_quiz
-        ? navigate("/dashboard")
-        : navigate("/quiz");
     }
   }
 
