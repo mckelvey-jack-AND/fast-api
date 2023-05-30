@@ -75,7 +75,6 @@ def get_quiz():
     data = get_quiz_data()
     return {"data": data}
 
-<<<<<<< HEAD
 @app.get("/individual-position")
 def read_leaderboard_score_overtime(): 
     individual_position = (
@@ -84,7 +83,6 @@ def read_leaderboard_score_overtime():
     return {
         "data": individual_position,
     }
-=======
 
 @app.get("/individual-questions-difficulty", tags=["root"])
 async def read_question_difficulty() -> dict:
@@ -132,4 +130,3 @@ async def read_best_results_and_worst_results(type: str) -> dict:
             "worst_result": worst_result[0],
         }
     }
->>>>>>> feature/ons-48/add-easy-hardest-question-visualisations
