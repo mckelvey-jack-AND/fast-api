@@ -12,9 +12,9 @@ const Leaderboard = ({ userData, type }) => {
         <li className={styles.list_header}>
           <div>Place</div>
           <div>{type === "individual" ? "Name" : "Squad"}</div>
-          <div>Score</div>
+          <div>Score / {type === "individual" ? "10" : "100"}</div>
         </li>
-        {userData.map((user, index) => {
+        {userData.map((user) => {
           const name =
             type === "squad"
               ? user.squad
@@ -23,8 +23,8 @@ const Leaderboard = ({ userData, type }) => {
           return (
             <li key={name} className={styles.list_item}>
               <div className={styles.place}>
-                {index + 1}
-                {getOrdinal(index + 1)}
+                {user.position}
+                {getOrdinal(user.position)}
               </div>
               <div className={styles.name}>{name}</div>
               <div className={styles.score}>{user["total score"]}</div>

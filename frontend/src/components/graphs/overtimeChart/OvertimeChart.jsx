@@ -59,7 +59,7 @@ const OvertimeChart = ({ type }) => {
                 position: "insideLeft",
               }}
             />
-            <Tooltip content={<CustomToolTip />} />
+            <Tooltip content={<CustomToolTip type={type} />} />
             <Line type="monotone" dataKey="position" stroke="#B21F2B" />
           </LineChart>
         </ResponsiveContainer>
