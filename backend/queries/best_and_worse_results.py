@@ -18,11 +18,9 @@ def get_squad_results(squadName, isBest=True):
             answers ON answers.id = user_answers.answer_id
             LEFT JOIN
             rounds ON rounds.id = user_answers.rounds_id
-    WHERE
-     answers.is_correct = 1
     GROUP BY squad, rounds
     ORDER BY rounds, total_score DESC) as sub
-    where squad = '{squadName}' and position in (select {"min" if isBest else "max"}(position) from (SELECT 
+    where squad = %s and position in (select {"min" if isBest else "max"}(position) from (SELECT 
     rounds.rounds,
     users.squad,
     RANK() OVER(PARTITION BY rounds ORDER BY SUM(answers.is_correct) DESC) 'position'
@@ -34,15 +32,13 @@ def get_squad_results(squadName, isBest=True):
             answers ON answers.id = user_answers.answer_id
             LEFT JOIN
             rounds ON rounds.id = user_answers.rounds_id
-    WHERE
-     answers.is_correct = 1
     GROUP BY squad, rounds
     ORDER BY rounds) main
-	where squad = '{squadName}'
+	where squad = %s
 	GROUP BY squad)
     """
     cursor = connection.cursor()
-    cursor.execute(query)
+    cursor.execute(query, (squadName, squadName))
     data = cursor.fetchall()
     cursor.close()
     connection.close()
@@ -67,8 +63,6 @@ FROM
     answers ON answers.id = user_answers.answer_id
     LEFT JOIN
     rounds ON rounds.id = user_answers.rounds_id
-WHERE
-    answers.is_correct = 1
 GROUP BY user_id, rounds
 ORDER BY rounds, SUM(answers.is_correct) DESC) as sub
 where user_id = %s and position in (select {"min" if isBest else "max"}(position) from (SELECT 
@@ -83,8 +77,6 @@ where user_id = %s and position in (select {"min" if isBest else "max"}(position
             answers ON answers.id = user_answers.answer_id
             LEFT JOIN
             rounds ON rounds.id = user_answers.rounds_id
-    WHERE
-     answers.is_correct = 1
     GROUP BY user_id, rounds
     ORDER BY rounds) main
 	where user_id = %s
