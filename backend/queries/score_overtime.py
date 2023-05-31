@@ -21,10 +21,10 @@ def get_individual_score_overtime(user_id):
     rounds ON rounds.id = user_answers.rounds_id
     GROUP BY user_id, rounds
     ORDER BY rounds, SUM(answers.is_correct) DESC) as sub
-    where user_id = %s
+    where user_id = {user_id}
     """
     cursor = connection.cursor()
-    cursor.execute(query, (user_id,))
+    cursor.execute(query)
     data = cursor.fetchall()
     cursor.close()
     connection.close()

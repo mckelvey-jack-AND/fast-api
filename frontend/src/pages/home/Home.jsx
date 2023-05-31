@@ -8,7 +8,7 @@ import WarningIcon from "./WarningIcon";
 
 const Home = () => {
   const { setCurrentUser } = React.useContext(UserContext);
-  const [emailInput, setEmailInput] = useState("musa@and.digital");
+  const [emailInput, setEmailInput] = useState("bkleen1@and.digital");
   const [error, setError] = useState("");
 
   const navigate = useNavigate();

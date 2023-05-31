@@ -36,6 +36,7 @@ class Answer(BaseModel):
     roundId: List[str]
     questionId: List[str]
     answerId: List[str]
+    userId: List[str]
 
 
 @app.post("/answers")
@@ -44,7 +45,11 @@ async def handle_answers(answer: Answer):
     roundId = answer.roundId
     questionId = answer.questionId
     answerId = answer.answerId
-    response_data = post_quiz_answers(received_answers, roundId, questionId, answerId)
+    userId = answer.userId
+
+    response_data = post_quiz_answers(
+        received_answers, roundId, questionId, answerId, userId
+    )
     return {"data": response_data}
 
 
