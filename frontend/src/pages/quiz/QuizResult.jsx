@@ -4,19 +4,25 @@ import styles from "./quizResult.module.css";
 import PositionCard from "../../components/resultCards/resultCard/PositionCard";
 import useFetch from "../../hooks/useFetch";
 import ReviewAnswers from "./ReviewAnswers";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../hooks/UserContext";
+
 
 const QuizResult = (props) => {
+
+  const { currentUser } = React.useContext(UserContext);
 
   const {
     data: resultData,
     error,
     loading,
-  } = useFetch("/individual-position");
+  } = useFetch("/individual-position",{
+    user_id: currentUser.id,
+  });
 
+  const navigate = useNavigate();
   useEffect(() => {
-    if (error) {
-      window.location.replace("/error");
-    }
+    error && navigate("/error");
   }, [error]);
   return (
     <div>  {loading && <div>LOADING!</div>}

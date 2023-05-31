@@ -93,9 +93,9 @@ def get_quiz():
     return {"data": data}
 
 @app.get("/individual-position")
-def read_leaderboard_score_overtime(): 
+def read_leaderboard_score_overtime(user_id: str): 
     individual_position = (
-        get_individual_position(1)
+        get_individual_position(user_id)
     )
     return {
         "data": individual_position,
