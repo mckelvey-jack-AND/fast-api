@@ -4,32 +4,32 @@ answers_from_db = [
     {
         "rounds": "quiz_1",
         "difficulty": "Easy",
-        "total_correct": "1",
+        "percentage_correct": "1",
     },
     {
         "rounds": "quiz_1",
         "difficulty": "Medium",
-        "total_correct": "2",
+        "percentage_correct": "2",
     },
     {
         "rounds": "quiz_1",
         "difficulty": "Hard",
-        "total_correct": "3",
+        "percentage_correct": "3",
     },
     {
         "rounds": "quiz_2",
         "difficulty": "Easy",
-        "total_correct": "4",
+        "percentage_correct": "4",
     },
     {
         "rounds": "quiz_2",
         "difficulty": "Medium",
-        "total_correct": "5",
+        "percentage_correct": "5",
     },
     {
         "rounds": "quiz_2",
         "difficulty": "Hard",
-        "total_correct": "6",
+        "percentage_correct": "6",
     },
 ]
 
