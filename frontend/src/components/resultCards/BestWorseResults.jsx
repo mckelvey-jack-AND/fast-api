@@ -2,12 +2,20 @@ import React, { useEffect } from "react";
 import ResultCard from "./resultCard/ResultCard";
 import styles from "./bestWorseResults.module.css";
 import useFetch from "../../hooks/useFetch";
+import { UserContext } from "../../hooks/UserContext";
+
 const BestWorseResults = ({ type }) => {
+  const { currentUser } = React.useContext(UserContext);
+
   const {
     data: resultData,
     error,
     loading,
-  } = useFetch("/best-results-and-worst-results", { type: type });
+  } = useFetch("/best-results-and-worst-results", {
+    type: type,
+    squadName: currentUser.squad,
+    user_id: currentUser.id,
+  });
 
   useEffect(() => {
     if (error) {

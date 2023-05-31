@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect, useState } from "react";
 import styles from "./quiz.module.css";
 import QuizResult from "./QuizResult";
+import { UserContext } from "../../hooks/UserContext";
 
 const Quiz = () => {
   const [question, setQuestion] = useState(null);
@@ -18,6 +19,7 @@ const Quiz = () => {
   const [answerId, setAnswerId] = useState([]);
   const [questionId, setQuestionId] = useState([]);
 
+  const { currentUser } = useContext(UserContext);
   const sendDataToServer = async () => {
     const reversedAllAnswers = [...allAnswers].reverse();
     const reversedQuestionId = [...questionId].reverse();
@@ -34,6 +36,7 @@ const Quiz = () => {
           roundId: roundId,
           questionId: reversedQuestionId,
           answerId: reversedAnswerId,
+          userId: Array(10).fill(currentUser.id),
         }),
       });
       setShowResult(true);
