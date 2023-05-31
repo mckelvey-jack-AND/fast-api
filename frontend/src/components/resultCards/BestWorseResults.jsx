@@ -3,6 +3,7 @@ import ResultCard from "./resultCard/ResultCard";
 import styles from "./bestWorseResults.module.css";
 import useFetch from "../../hooks/useFetch";
 import { UserContext } from "../../hooks/UserContext";
+import LoadingAnimation from "../animations/LoadingAnimation";
 
 const BestWorseResults = ({ type }) => {
   const { currentUser } = React.useContext(UserContext);
@@ -25,7 +26,7 @@ const BestWorseResults = ({ type }) => {
 
   return (
     <section className={styles.result_cards_container}>
-      {loading && <div>LOADING!</div>}
+      {loading && <LoadingAnimation />}
       {resultData && (
         <>
           <ResultCard

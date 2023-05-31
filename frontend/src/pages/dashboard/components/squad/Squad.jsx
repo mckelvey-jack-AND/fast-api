@@ -6,6 +6,7 @@ import styles from "./squad.module.css";
 import OvertimeChart from "../../../../components/graphs/overtimeChart/OvertimeChart";
 import BestWorseResults from "../../../../components/resultCards/BestWorseResults";
 import GroupedBarChart from "../../../../components/graphs/GroupedBarChart";
+import LoadingAnimation from "../../../../components/animations/LoadingAnimation";
 
 const Squad = () => {
   const {
@@ -21,8 +22,8 @@ const Squad = () => {
   }, [error]);
 
   return (
-    <div>
-      {loading && <div>LOADING!</div>}
+    <div className={styles.squad_page_container}>
+      {loading && <LoadingAnimation />}
       <div className={styles.leaderboard}>
         {userData && <Leaderboard userData={userData} type="squad" />}
         <BestWorseResults type="squad" />

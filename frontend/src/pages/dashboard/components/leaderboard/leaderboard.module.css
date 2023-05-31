@@ -1,7 +1,9 @@
 .leaderboard {
   border: 6px solid #f5f5f6;
   padding: 2rem;
+  min-height: 200px;
   max-height: 500px;
+  position: relative;
   overflow-y: scroll;
   margin: 1rem 0;
   box-shadow: rgba(0, 0, 0, 0.21) 0px 2px 0px;
