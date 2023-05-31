@@ -25,7 +25,7 @@ const GroupedBarChart = () => {
   return (
     <section className={styles.chart_container}>
       {loading && <div>Loading...</div>}
-      <h3 className={styles.chart_header}>Difficulty Matrix</h3>
+      <h3 className={styles.chart_header}>Difficulty Success Matrix</h3>
       <div style={{ height: "200px", width: "100%" }}>
         <ResponsiveContainer width={"100%"} height="100%">
           <BarChart data={graphData}>

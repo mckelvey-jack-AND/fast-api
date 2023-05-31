@@ -19,3 +19,5 @@ notes=FIXME,XXX
 disable=
 	missing-function-docstring,
     missing-module-docstring,
+    
+extension-pkg-allow-list=pydantic
