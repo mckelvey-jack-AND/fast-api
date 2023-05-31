@@ -8,7 +8,7 @@ const CustomToolTip = ({ active, payload, type }) =>
       <p
         className={styles.custom_tooltip_leadership}
       >{`Leaderboard Position: ${payload[0].payload.position}`}</p>
-      <p className="label">{`Score : ${Math.floor(
+      <p className="label">{`Score : ${Math.round(
         (payload[0].payload.total_score / (type === "squad" ? 100 : 10)) * 100
       )}%`}</p>
       <p className="label">{`Round : ${payload[0].payload.rounds}`}</p>
