@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
+import CustomToolTip from "./CustomToolTip";
 import {
   BarChart,
   Bar,
@@ -30,8 +31,14 @@ const GroupedBarChart = () => {
           <BarChart data={graphData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis fontSize="10px" dataKey="name" />
-            <YAxis fontSize="10px" width={25} />
-            <Tooltip />
+            <YAxis
+              fontSize="10px"
+              width={30}
+              type="number"
+              domain={[0, 100]}
+              tickFormatter={(tick) => `${tick}%`}
+            />
+            <Tooltip content={<CustomToolTip />} />
             <Legend />
             <Bar dataKey="easy" fill="#acdf87" />
             <Bar dataKey="medium" fill="#ffc500" />
