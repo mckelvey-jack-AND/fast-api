@@ -3,33 +3,18 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-  Navigate,
   RouterProvider,
 } from "react-router-dom";
-import App from "../App";
-import Home from "./home/Home";
-import Dashboard from "./dashboard/Dashboard";
-import Quiz from "./quiz/Quiz";
-import NotFound from "./notFound/NotFound";
-import { UserContext } from "../hooks/UserContext";
+import App from "../../App";
+import Home from "../home/Home";
+import Dashboard from "../dashboard/Dashboard";
+import Quiz from "../quiz/Quiz";
+import NotFound from "../notFound/NotFound";
+import { UserContext } from "../../hooks/UserContext";
+import { RequireQuizAuth, RequireUserAuth } from "./authentication/RouteAuths";
 
 const Routes = () => {
   const [currentUser, setCurrentUser] = useState("");
-
-  function RequireUserAuth({ children, redirectTo }) {
-    const userExists = currentUser !== "";
-    return userExists ? children : <Navigate to={redirectTo} />;
-  }
-
-  function RequireQuizAuth({ children, redirectTo }) {
-    const userExists = currentUser !== "";
-    const userHasTakenQuiz = !!currentUser?.has_taken_most_recent_quiz;
-
-    if (!userExists) {
-      return <Navigate to={"/"} />;
-    }
-    return !userHasTakenQuiz ? children : <Navigate to={redirectTo} />;
-  }
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -39,7 +24,7 @@ const Routes = () => {
         <Route
           path="dashboard"
           element={
-            <RequireUserAuth redirectTo="/">
+            <RequireUserAuth currentUser={currentUser} redirectTo="/">
               <Dashboard />
             </RequireUserAuth>
           }
@@ -47,7 +32,7 @@ const Routes = () => {
         <Route
           path="quiz"
           element={
-            <RequireQuizAuth redirectTo="/dashboard">
+            <RequireQuizAuth currentUser={currentUser} redirectTo="/dashboard">
               <Quiz />
             </RequireQuizAuth>
           }
