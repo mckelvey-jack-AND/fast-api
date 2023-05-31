@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import Individual from "./Individual";
 const mockedUsedNavigate = jest.fn();
 
@@ -9,10 +9,12 @@ jest.mock("react-router-dom", () => ({
 }));
 
 describe("Individual component", () => {
-  it("should render dashboard content", () => {
-    render(<Individual />);
-    const individualDashboardContent = screen.getByText("LOADING!");
+  it("should render animation when loading page", () => {
+    const { container } = render(<Individual />);
+    const individualDashboardContent = container.getElementsByClassName(
+      "animation_container"
+    );
 
-    expect(individualDashboardContent).toBeVisible();
+    expect(individualDashboardContent.length).toBe(1);
   });
 });
