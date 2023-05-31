@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 from queries.correct_answers import get_correct_answers
 from helpers.correct_answer_fotmat import group_by_rounds
@@ -13,6 +13,8 @@ from queries.score_overtime import (
     get_squad_score_overtime,
 )
 from queries.best_and_worse_results import get_squad_results, get_individual_results
+from queries.get_user import get_user
+
 
 app = FastAPI()
 
@@ -34,6 +36,7 @@ class Answer(BaseModel):
     roundId: List[str]
     questionId: List[str]
     answerId: List[str]
+    userId: List[str]
 
 
 @app.post("/answers")
@@ -42,13 +45,27 @@ async def handle_answers(answer: Answer):
     roundId = answer.roundId
     questionId = answer.questionId
     answerId = answer.answerId
-    response_data = post_quiz_answers(received_answers, roundId, questionId, answerId)
+    userId = answer.userId
+
+    response_data = post_quiz_answers(
+        received_answers, roundId, questionId, answerId, userId
+    )
     return {"data": response_data}
 
 
 @app.get("/", tags=["root"])
 async def read_root() -> dict:
     return {"message": "Hello world."}
+
+
+@app.post("/user")
+async def read_current_user(user_email: dict, response: Response) -> dict:
+    user = get_user(user_email["user_email"])
+
+    if not user:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {"data": "User not found"}
+    return {"data": user[0]}
 
 
 @app.get("/correct-answers")
@@ -89,14 +106,16 @@ async def read_question_difficulty() -> dict:
 
 
 @app.get("/leaderboard-score-overtime")
-async def read_leaderboard_score_overtime(type: str) -> dict:
+async def read_leaderboard_score_overtime(
+    type: str, user_id: str, squad_name: str
+) -> dict:
     if type != "squad" and type != "individual":
         raise HTTPException(status_code=404, detail="Type must be individual or squad")
 
     leaderboard_score_overtime = (
-        get_individual_score_overtime(1)
+        get_individual_score_overtime(user_id)
         if type == "individual"
-        else get_squad_score_overtime("squad_1")
+        else get_squad_score_overtime(squad_name)
     )
     return {
         "data": leaderboard_score_overtime,
@@ -104,15 +123,21 @@ async def read_leaderboard_score_overtime(type: str) -> dict:
 
 
 @app.get("/best-results-and-worst-results")
-async def read_best_results_and_worst_results(type: str) -> dict:
+async def read_best_results_and_worst_results(
+    type: str, squadName: str, user_id: str
+) -> dict:
     if type != "squad" and type != "individual":
         raise HTTPException(status_code=404, detail="Type must be individual or squad")
 
     best_results = (
-        get_squad_results(True) if type == "squad" else get_individual_results(True)
+        get_squad_results(squadName, True)
+        if type == "squad"
+        else get_individual_results(user_id, True)
     )
     worst_result = (
-        get_squad_results(False) if type == "squad" else get_individual_results(False)
+        get_squad_results(squadName, False)
+        if type == "squad"
+        else get_individual_results(user_id, False)
     )
 
     return {

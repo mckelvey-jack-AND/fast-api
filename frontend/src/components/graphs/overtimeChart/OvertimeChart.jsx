@@ -13,12 +13,20 @@ import useFetch from "../../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 import styles from "./overtimeChart.module.css";
 
+import { UserContext } from "../../../hooks/UserContext";
+
 const OvertimeChart = ({ type }) => {
+  const { currentUser } = React.useContext(UserContext);
+
   const {
     data: graphData,
     error,
     loading,
-  } = useFetch("/leaderboard-score-overtime", { type: type });
+  } = useFetch("/leaderboard-score-overtime", {
+    type: type,
+    user_id: currentUser.id,
+    squad_name: currentUser.squad,
+  });
   const navigate = useNavigate();
 
   useEffect(() => {

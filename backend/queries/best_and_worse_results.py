@@ -1,7 +1,7 @@
 from database import connectDB
 
 
-def get_squad_results(isBest=True):
+def get_squad_results(squadName, isBest=True):
     connection = connectDB()
     query = f"""
     SELECT squad, position, count(position) as occurrences from (SELECT 
@@ -18,11 +18,9 @@ def get_squad_results(isBest=True):
             answers ON answers.id = user_answers.answer_id
             LEFT JOIN
             rounds ON rounds.id = user_answers.rounds_id
-    WHERE
-     answers.is_correct = 1
     GROUP BY squad, rounds
     ORDER BY rounds, total_score DESC) as sub
-    where squad = 'squad_1' and position in (select {"min" if isBest else "max"}(position) from (SELECT 
+    where squad = %s and position in (select {"min" if isBest else "max"}(position) from (SELECT 
     rounds.rounds,
     users.squad,
     RANK() OVER(PARTITION BY rounds ORDER BY SUM(answers.is_correct) DESC) 'position'
@@ -34,22 +32,20 @@ def get_squad_results(isBest=True):
             answers ON answers.id = user_answers.answer_id
             LEFT JOIN
             rounds ON rounds.id = user_answers.rounds_id
-    WHERE
-     answers.is_correct = 1
     GROUP BY squad, rounds
     ORDER BY rounds) main
-	where squad = 'squad_1'
+	where squad = %s
 	GROUP BY squad)
     """
     cursor = connection.cursor()
-    cursor.execute(query)
+    cursor.execute(query, (squadName, squadName))
     data = cursor.fetchall()
     cursor.close()
     connection.close()
     return data
 
 
-def get_individual_results(isBest=True):
+def get_individual_results(user_id, isBest=True):
     connection = connectDB()
     query = f"""
     SELECT user_id, position, count(position) as occurrences from (SELECT 
@@ -67,11 +63,9 @@ FROM
     answers ON answers.id = user_answers.answer_id
     LEFT JOIN
     rounds ON rounds.id = user_answers.rounds_id
-WHERE
-    answers.is_correct = 1
 GROUP BY user_id, rounds
 ORDER BY rounds, SUM(answers.is_correct) DESC) as sub
-where user_id = 1 and position in (select {"min" if isBest else "max"}(position) from (SELECT 
+where user_id = %s and position in (select {"min" if isBest else "max"}(position) from (SELECT 
     rounds.rounds,
     user_id,
     RANK() OVER(PARTITION BY rounds ORDER BY SUM(answers.is_correct) DESC) 'position'
@@ -83,15 +77,13 @@ where user_id = 1 and position in (select {"min" if isBest else "max"}(position)
             answers ON answers.id = user_answers.answer_id
             LEFT JOIN
             rounds ON rounds.id = user_answers.rounds_id
-    WHERE
-     answers.is_correct = 1
     GROUP BY user_id, rounds
     ORDER BY rounds) main
-	where user_id = 1
+	where user_id = %s
 	GROUP BY user_id)
     """
     cursor = connection.cursor()
-    cursor.execute(query)
+    cursor.execute(query, (user_id, user_id))
     data = cursor.fetchall()
     cursor.close()
     connection.close()
