@@ -11,7 +11,8 @@ def get_leaderboard_data(type):
         users.first_name,
         users.last_name,
         users.squad,
-        SUM(answers.is_correct) AS 'total score'
+        SUM(answers.is_correct) AS 'total score',
+        RANK() OVER(ORDER BY SUM(answers.is_correct) DESC) 'position'
     FROM
         user_answers
             LEFT JOIN
@@ -24,7 +25,7 @@ def get_leaderboard_data(type):
                 id
             FROM
                 rounds
-            ORDER BY date ASC limit 1)
+            ORDER BY date DESC limit 1)
     GROUP BY user_id
     ORDER BY SUM(answers.is_correct) DESC
     LIMIT 10
@@ -32,7 +33,8 @@ def get_leaderboard_data(type):
 
     squad_query = f"""
     SELECT 
-        users.squad, SUM(answers.is_correct) AS 'total score'
+        users.squad, SUM(answers.is_correct) AS 'total score',
+        RANK() OVER(ORDER BY SUM(answers.is_correct) DESC) 'position'
     FROM
         user_answers
             LEFT JOIN
@@ -43,7 +45,7 @@ def get_leaderboard_data(type):
                 id
             FROM
                 rounds
-            ORDER BY date ASC
+            ORDER BY date DESC
             LIMIT 1)
     WHERE
         answers.is_correct = 1

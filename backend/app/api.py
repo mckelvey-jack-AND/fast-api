@@ -117,6 +117,7 @@ async def read_leaderboard_score_overtime(
         if type == "individual"
         else get_squad_score_overtime(squad_name)
     )
+    print(leaderboard_score_overtime)
     return {
         "data": leaderboard_score_overtime,
     }
