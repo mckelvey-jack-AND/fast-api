@@ -16,7 +16,7 @@ const ReviewAnswers = ({ questions, answers, correctAnswers }) => {
       </button>
       {isOpen && (
         <div className={styles.content}>
-          {questions.map((question, index) => (
+          {questions.slice(0,10).map((question, index) => (
             <div key={index} className={(answers[index] === correctAnswers[index]) ? styles.questionAnswer : styles.questionAnswer1}>
                 <div className={styles.progress}>{index+1}/10</div>
               <div className={styles.question}>{question}</div>
