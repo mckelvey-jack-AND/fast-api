@@ -71,7 +71,7 @@ WHERE
     answers.is_correct = 1
 GROUP BY user_id, rounds
 ORDER BY rounds, SUM(answers.is_correct) DESC) as sub
-where user_id = 1 and position in (select {"min" if isBest else "max"}(position) from (SELECT 
+where user_id = %s and position in (select {"min" if isBest else "max"}(position) from (SELECT 
     rounds.rounds,
     user_id,
     RANK() OVER(PARTITION BY rounds ORDER BY SUM(answers.is_correct) DESC) 'position'
@@ -87,11 +87,11 @@ where user_id = 1 and position in (select {"min" if isBest else "max"}(position)
      answers.is_correct = 1
     GROUP BY user_id, rounds
     ORDER BY rounds) main
-	where user_id = {user_id}
+	where user_id = %s
 	GROUP BY user_id)
     """
     cursor = connection.cursor()
-    cursor.execute(query)
+    cursor.execute(query, (user_id, user_id))
     data = cursor.fetchall()
     cursor.close()
     connection.close()

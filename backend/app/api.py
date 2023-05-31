@@ -56,14 +56,10 @@ async def read_root() -> dict:
 @app.post("/user")
 async def read_current_user(user_email: dict, response: Response) -> dict:
     user = get_user(user_email["user_email"])
-    print(type(user))
+
     if not user:
         response.status_code = status.HTTP_404_NOT_FOUND
         return {"data": "User not found"}
-
-    # curr = {**user[0], **{"has_taken_most_recent_quiz": 1}}
-    # print(curr)
-    # return {"data": curr}
     return {"data": user[0]}
 
 
