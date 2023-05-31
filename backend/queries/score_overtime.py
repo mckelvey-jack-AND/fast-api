@@ -19,14 +19,12 @@ def get_individual_score_overtime(user_id):
     answers ON answers.id = user_answers.answer_id
     LEFT JOIN
     rounds ON rounds.id = user_answers.rounds_id
-    WHERE
-    answers.is_correct = 1
     GROUP BY user_id, rounds
     ORDER BY rounds, SUM(answers.is_correct) DESC) as sub
-    where user_id = {user_id}
+    where user_id = %s
     """
     cursor = connection.cursor()
-    cursor.execute(query)
+    cursor.execute(query, (user_id,))
     data = cursor.fetchall()
     cursor.close()
     connection.close()
@@ -53,10 +51,10 @@ def get_squad_score_overtime(squad_name):
      answers.is_correct = 1
     GROUP BY squad, rounds
     ORDER BY rounds, total_score DESC) as sub
-    where squad = "{squad_name}"
+    where squad = %s
     """
     cursor = connection.cursor()
-    cursor.execute(query)
+    cursor.execute(query, (squad_name,))
     data = cursor.fetchall()
     cursor.close()
     connection.close()
