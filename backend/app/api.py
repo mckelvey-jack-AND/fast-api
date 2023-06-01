@@ -92,14 +92,14 @@ def get_quiz():
     data = get_quiz_data()
     return {"data": data}
 
+
 @app.get("/individual-position")
-def read_leaderboard_score_overtime(user_id: str): 
-    individual_position = (
-        get_individual_position(user_id)
-    )
+def read_leaderboard_position(user_id: str):
+    individual_position = get_individual_position(user_id)
     return {
         "data": individual_position,
     }
+
 
 @app.get("/individual-questions-difficulty", tags=["root"])
 async def read_question_difficulty() -> dict:
