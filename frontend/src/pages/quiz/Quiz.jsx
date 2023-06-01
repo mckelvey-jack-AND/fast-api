@@ -170,7 +170,7 @@ const Quiz = () => {
                   sendDataToServer();
                 }}
               >
-                <span>Finish</span>
+                <span>See Results</span>
                 {<RightArrowIcon />}
               </button>
             )}
