@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "./quiz.module.css";
 import QuizResult from "./QuizResult";
 import { UserContext } from "../../hooks/UserContext";
+import { RightArrowIcon } from "../../components/resultCards/resultCard/ArrowIcons";
 
 const Quiz = () => {
   const [question, setQuestion] = useState(null);
@@ -139,25 +140,29 @@ const Quiz = () => {
         />
       ) : (
         <>
-          <div className={styles.progressBar}>
-            <p>Question &nbsp;</p> {currentQuestion / 4 + 1}/10
-          </div>
+          {!endQuiz && (
+            <div className={styles.progressBar}>
+              <p>Question &nbsp;</p> {currentQuestion / 4 + 1}/10
+            </div>
+          )}
           <div className={styles.question} data-testid="question">
-            {" "}
-            {question}{" "}
+            {endQuiz ? "You finished the quiz! " : question}
           </div>
           <div className={styles.answer} data-testid="answers">
-            {answers.map((answer, index) => {
-              return (
-                <button
-                  key={index}
-                  className={styles.button_answer}
-                  onClick={() => handleClick(answer)}
-                >
-                  {answer.text}
-                </button>
-              );
-            })}
+            <>
+              {!endQuiz &&
+                answers.map((answer, index) => {
+                  return (
+                    <button
+                      key={index}
+                      className={styles.button_answer}
+                      onClick={() => handleClick(answer)}
+                    >
+                      {answer.text}
+                    </button>
+                  );
+                })}
+            </>
             {endQuiz && (
               <button
                 className={styles.submit}
@@ -165,7 +170,8 @@ const Quiz = () => {
                   sendDataToServer();
                 }}
               >
-                Finish
+                <span>Finish</span>
+                {<RightArrowIcon />}
               </button>
             )}
           </div>
