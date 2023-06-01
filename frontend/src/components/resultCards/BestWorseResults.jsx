@@ -32,14 +32,12 @@ const BestWorseResults = ({ type }) => {
           <ResultCard
             type={type}
             isBestResult={true}
-            date="June 9th 2023"
             position={resultData?.best_result.position}
             occurrences={resultData?.best_result.occurrences}
           />
           <ResultCard
             type={type}
             isBestResult={false}
-            date="May 15th 2023"
             position={resultData.worst_result.position}
             occurrences={resultData.worst_result.occurrences}
           />

@@ -47,13 +47,11 @@ const QuizResult = (props) => {
               <>
                 <PositionCard
                   type="Squad"
-                  date="June 1st 2023"
                   position={resultData.position_in_squad[0].position}
                   lastWeekPosition={resultData.position_in_squad[1].position}
                 />
                 <PositionCard
                   type="Club"
-                  date="June 1st 2023"
                   position={resultData.position_in_club[0].position}
                   lastWeekPosition={resultData.position_in_club[1].position}
                 />

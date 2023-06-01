@@ -3,19 +3,12 @@ import { DownArrowIcon, UpArrowIcon } from "./ArrowIcons";
 import styles from "./resultCard.module.css";
 import { getOrdinal } from "../../../helpers/getOrdinal";
 
-const ResultCard = ({
-  type,
-  isBestResult,
-  date = "June 9th 2023",
-  position = 1,
-  occurrences = 2,
-}) => {
+const ResultCard = ({ type, isBestResult, position = 1, occurrences = 2 }) => {
   return (
     <article className={styles.result_card_container}>
       <h2 className={styles.result_card_header}>
         {type}s {isBestResult ? "Best" : "Worse"} result
       </h2>
-      <p className={styles.result_card_date}>{date}</p>
       <p className={styles.result_card_place}>
         {" "}
         {`${position}${getOrdinal(position)}`}{" "}
