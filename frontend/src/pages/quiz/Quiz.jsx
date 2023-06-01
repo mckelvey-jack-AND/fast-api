@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "./quiz.module.css";
 import QuizResult from "./QuizResult";
 import { UserContext } from "../../hooks/UserContext";
+import { RightArrowIcon } from "../../components/resultCards/resultCard/ArrowIcons";
 
 const Quiz = () => {
   const [question, setQuestion] = useState(null);
@@ -165,7 +166,8 @@ const Quiz = () => {
                   sendDataToServer();
                 }}
               >
-                Finish
+                <span>Finish</span>
+                {<RightArrowIcon />}
               </button>
             )}
           </div>
