@@ -5,7 +5,10 @@ from helpers.correct_answer_fotmat import group_by_rounds
 from queries.question_difficulty import get_easiest_question, get_hardest_question
 from queries.leaderboard import get_leaderboard_data
 from queries.quizQuestions import get_quiz_data
-from queries.individualPosition import get_individual_position
+from queries.individualPosition import (
+    get_individual_position_in_club,
+    get_individual_position_in_squad,
+)
 from queries.quizAnswers import post_quiz_answers
 from pydantic import BaseModel
 from typing import List
@@ -95,9 +98,13 @@ def get_quiz():
 
 @app.get("/individual-position")
 def read_leaderboard_position(user_id: str):
-    individual_position = get_individual_position(user_id)
+    position_in_club = get_individual_position_in_club(user_id)
+    position_in_squad = get_individual_position_in_squad(user_id)
     return {
-        "data": individual_position,
+        "data": {
+            "position_in_squad": position_in_squad,
+            "position_in_club": position_in_club,
+        }
     }
 
 

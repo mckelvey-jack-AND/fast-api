@@ -1,10 +1,9 @@
 from database import connectDB
 
-def get_individual_position(user_id):
+def get_individual_position_in_club(user_id):
     connection = connectDB()        
-
     
-    user_position_within_all = f'''
+    query = f'''
    SELECT user_id,  rounds, position
    FROM (
     SELECT user_id, first_name, last_name, rounds, total_score, position
@@ -32,8 +31,16 @@ def get_individual_position(user_id):
     LIMIT 2;
     '''
 
-    user_position_within_squad = f'''
-   SELECT user_id, rounds, position
+    cursor = connection.cursor()
+    cursor.execute(query)
+    data = cursor.fetchall()
+    return data
+
+def get_individual_position_in_squad(user_id):
+    connection = connectDB()        
+    
+    query = f'''
+    SELECT user_id, rounds, position
     FROM (
         SELECT user_id, first_name, last_name, rounds, total_score, position
         FROM (
@@ -52,26 +59,18 @@ def get_individual_position(user_id):
             -- Additional condition to filter by user's squad
             INNER JOIN users user_filter ON user_filter.squad = users.squad
         WHERE
-            answers.is_correct = 1
-            AND user_filter.ID = 2
+            user_filter.ID = %s
         GROUP BY user_id, rounds
         ORDER BY rounds, SUM(answers.is_correct) DESC
         ) AS ranked_results
-        WHERE user_id = {user_id}
+        WHERE user_id = %s
         ) AS filtered_results
      ORDER BY rounds DESC
-    LIMIT 2;
+     limit 2
     '''
 
     cursor = connection.cursor()
-    cursor.execute(user_position_within_all)
-    data1 = cursor.fetchall()
-
-    cursor.execute(user_position_within_squad)
-    data2 = cursor.fetchall()
-
-    data = data1+data2
-    cursor.close()
-    connection.close()
-
+    cursor.execute(query, (user_id, user_id))
+    data = cursor.fetchall()
     return data
+
