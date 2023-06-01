@@ -4,7 +4,7 @@ import Individual from "./components/individual/Individual";
 import Squad from "./components/squad/Squad";
 
 const Dashboard = () => {
-  const [active, setActive] = useState("squad");
+  const [active, setActive] = useState("individual");
 
   return (
     <div className={styles.tabs}>

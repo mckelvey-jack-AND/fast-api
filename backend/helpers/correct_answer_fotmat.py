@@ -10,7 +10,7 @@ def get_quiz_categories(answers: list) -> dict:
     for answer in answers:
         quiz_round = answer["rounds"]
         difficulty = answer["difficulty"]
-        total_correct = int(answer["total_correct"])
+        total_correct = int(answer["percentage_correct"])
 
         if quiz_round not in quiz_rounds_categories:
             quiz_rounds_categories[quiz_round] = {"easy": 0, "medium": 0, "hard": 0}

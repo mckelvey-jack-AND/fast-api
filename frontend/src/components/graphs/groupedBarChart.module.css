@@ -14,3 +14,21 @@
   margin-bottom: 1rem;
   text-transform: capitalize;
 }
+
+.custom_tooltip_container {
+  background: white;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.tooltip_easy {
+  color: #acdf87;
+}
+
+.tooltip_medium {
+  color: #ffc500;
+}
+
+.tooltip_hard {
+  color: #e61717;
+}

@@ -7,7 +7,7 @@ def get_correct_answers():
     SELECT
     r.rounds
     ,q.difficulty
-    ,sum(a.is_correct) as total_correct 
+    ,round(sum(a.is_correct)/count(difficulty) * 100) as percentage_correct
     FROM
         user_answers AS ua
             LEFT JOIN
