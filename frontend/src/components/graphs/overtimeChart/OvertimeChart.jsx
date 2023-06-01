@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./overtimeChart.module.css";
 
 import { UserContext } from "../../../hooks/UserContext";
+import LoadingAnimation from "../../animations/LoadingAnimation";
 
 const OvertimeChart = ({ type }) => {
   const { currentUser } = React.useContext(UserContext);
@@ -35,7 +36,7 @@ const OvertimeChart = ({ type }) => {
 
   return (
     <div className={styles.graph_container}>
-      {loading && <div>Loading...</div>}
+      {loading && <LoadingAnimation />}
       <div className={styles.graph_chart}>
         <h3 className={styles.chart_header}>
           {`${type} Leaderboard over a period of time`}

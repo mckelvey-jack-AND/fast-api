@@ -68,7 +68,10 @@ const Quiz = () => {
       const res = await fetch("/quiz");
       const result = await res.json();
       setQuestion(result.data[currentQuestion].question_text);
-      setAllQuestions([...allQuestions,result.data[currentQuestion].question_text ]);
+      setAllQuestions([
+        ...allQuestions,
+        result.data[currentQuestion].question_text,
+      ]);
       setQuestionId([...questionId, result.data[currentQuestion].question_id]);
       setRoundId([...roundId, result.data[currentQuestion].round_id]);
 
@@ -93,16 +96,28 @@ const Quiz = () => {
 
       if (result.data[currentQuestion].isCorrect === 1) {
         setCorrectAnswer(result.data[currentQuestion].answer_text);
-        setAllCorrectAnswers([...allCorrectAnswers, result.data[currentQuestion].answer_text])
+        setAllCorrectAnswers([
+          ...allCorrectAnswers,
+          result.data[currentQuestion].answer_text,
+        ]);
       } else if (result.data[currentQuestion + 1].isCorrect === 1) {
         setCorrectAnswer(result.data[currentQuestion + 1].answer_text);
-        setAllCorrectAnswers([...allCorrectAnswers, result.data[currentQuestion+1].answer_text])
+        setAllCorrectAnswers([
+          ...allCorrectAnswers,
+          result.data[currentQuestion + 1].answer_text,
+        ]);
       } else if (result.data[currentQuestion + 2].isCorrect === 1) {
         setCorrectAnswer(result.data[currentQuestion + 2].answer_text);
-        setAllCorrectAnswers([...allCorrectAnswers, result.data[currentQuestion+2].answer_text])
+        setAllCorrectAnswers([
+          ...allCorrectAnswers,
+          result.data[currentQuestion + 2].answer_text,
+        ]);
       } else if (result.data[currentQuestion + 3].isCorrect === 1) {
         setCorrectAnswer(result.data[currentQuestion + 3].answer_text);
-        setAllCorrectAnswers([...allCorrectAnswers, result.data[currentQuestion+3].answer_text])
+        setAllCorrectAnswers([
+          ...allCorrectAnswers,
+          result.data[currentQuestion + 3].answer_text,
+        ]);
       }
     } catch (e) {
       console.log(e); // eslint-disable-line
@@ -116,7 +131,12 @@ const Quiz = () => {
   return (
     <div>
       {showResult ? (
-        <QuizResult totalCorrectAnswer={totalCorrectAnswer} questions={allQuestions} answers={allAnswers} correctAnswers={allCorrectAnswers} />
+        <QuizResult
+          totalCorrectAnswer={totalCorrectAnswer}
+          questions={allQuestions}
+          answers={allAnswers}
+          correctAnswers={allCorrectAnswers}
+        />
       ) : (
         <>
           <div className={styles.progressBar}>

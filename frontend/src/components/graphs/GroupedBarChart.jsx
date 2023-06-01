@@ -13,6 +13,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import styles from "./groupedBarChart.module.css";
+import LoadingAnimation from "../animations/LoadingAnimation";
 
 const GroupedBarChart = () => {
   const { data: graphData, error, loading } = useFetch("/correct-answers");
@@ -24,7 +25,7 @@ const GroupedBarChart = () => {
 
   return (
     <section className={styles.chart_container}>
-      {loading && <div>Loading...</div>}
+      {loading && <LoadingAnimation />}
       <h3 className={styles.chart_header}>Difficulty Success Matrix</h3>
       <div style={{ height: "200px", width: "100%" }}>
         <ResponsiveContainer width={"100%"} height="100%">

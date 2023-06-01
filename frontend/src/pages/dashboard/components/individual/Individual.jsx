@@ -7,6 +7,7 @@ import GroupedBarChart from "../../../../components/graphs/GroupedBarChart";
 import QuestionDifficulty from "../../../../components/questionDifficulty/QuestionDifficulty";
 import OvertimeChart from "../../../../components/graphs/overtimeChart/OvertimeChart";
 import BestWorseResults from "../../../../components/resultCards/BestWorseResults";
+import LoadingAnimation from "../../../../components/animations/LoadingAnimation";
 
 const Individual = () => {
   const {
@@ -22,8 +23,8 @@ const Individual = () => {
   }, [error]);
 
   return (
-    <div>
-      {loading && <div>LOADING!</div>}
+    <div className={styles.individual_page_container}>
+      {loading && <LoadingAnimation />}
       <div className={styles.leaderboard}>
         {userData && (
           <>

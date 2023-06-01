@@ -3,6 +3,7 @@ import Card from "./Card/Card";
 import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 import styles from "./questionDifficulty.module.css";
+import LoadingAnimation from "../animations/LoadingAnimation";
 const QuestionDifficulty = () => {
   const {
     data: question,
@@ -17,7 +18,7 @@ const QuestionDifficulty = () => {
 
   return (
     <section className={styles.question_card_container}>
-      {loading && <div>Loading...</div>}
+      {loading && <LoadingAnimation />}
       <Card
         title="Individuals easiest question this week
 "

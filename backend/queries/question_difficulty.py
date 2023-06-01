@@ -1,7 +1,7 @@
 from database import connectDB
 
 
-def get_hardest_question(round_id=1):
+def get_hardest_question():
     connection = connectDB()
     query = f"""
     SELECT 
@@ -27,7 +27,7 @@ def get_hardest_question(round_id=1):
         LEFT JOIN answers AS a ON a.id = ua.answer_id
         LEFT JOIN rounds AS r ON r.id = ua.rounds_id
         WHERE
-            r.id = {round_id}
+            r.id = (select id from rounds order by date desc limit 1)
         GROUP BY r.rounds , q.difficulty , question , q.question_text
         ORDER BY rounds , total_correct ASC , question) query ON query.question = answers.question_id
     WHERE
@@ -42,7 +42,7 @@ def get_hardest_question(round_id=1):
     return data
 
 
-def get_easiest_question(round_id=1):
+def get_easiest_question():
     connection = connectDB()
     query = f"""
     SELECT 
@@ -68,7 +68,7 @@ def get_easiest_question(round_id=1):
         LEFT JOIN answers AS a ON a.id = ua.answer_id
         LEFT JOIN rounds AS r ON r.id = ua.rounds_id
         WHERE
-            r.id = {round_id}
+            r.id = (select id from rounds order by date desc limit 1)
         GROUP BY r.rounds , q.difficulty , question , q.question_text
         ORDER BY rounds , total_correct DESC , question) query ON query.question = answers.question_id
     WHERE

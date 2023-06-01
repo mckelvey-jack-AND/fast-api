@@ -3,7 +3,10 @@
   padding: 2rem;
   margin: 1rem 0;
   box-shadow: rgba(0, 0, 0, 0.21) 0px 2px 0px;
+  min-height: 200px;
+  position: relative;
 }
+
 .chart_header {
   text-align: center;
   font-size: 12px;
