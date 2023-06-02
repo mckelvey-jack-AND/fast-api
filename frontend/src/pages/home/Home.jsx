@@ -57,6 +57,7 @@ const Home = () => {
         )}
       </form>
       <div className={styles.links}>
+        <p>See Privacy Policy</p>
         <button onClick={handleSubmit} className={styles.quiz}>
           <NextButtonIcon />
         </button>
