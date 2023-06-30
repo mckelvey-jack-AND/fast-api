@@ -18,9 +18,10 @@ from queries.score_overtime import (
 )
 from queries.best_and_worse_results import get_squad_results, get_individual_results
 from queries.get_user import get_user
-
+from mangum import Mangum
 
 app = FastAPI()
+handler = Mangum(app)
 
 
 origins = ["http://localhost:3000", "localhost:3000"]

@@ -1,7 +1,0 @@
-.question_card_container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 1rem;
-  min-height: 200px;
-  position: relative;
-}
